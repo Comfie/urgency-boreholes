@@ -1,0 +1,45 @@
+---
+// Sticky jump menu for the Services page. Highlights the section in view.
+import { services } from '../data/site';
+---
+<nav aria-label="Services on this page" class="sticky top-[4.5rem] z-30 -mt-7">
+  <div class="container-x">
+    <ul class="glass mx-auto flex w-fit max-w-full gap-1 overflow-x-auto rounded-full p-1.5 [scrollbar-width:none]">
+      {services.map((s, i) => (
+        <li class="shrink-0">
+          <a
+            href={`#${s.slug}`}
+            data-service-link={s.slug}
+            class="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-navy transition-colors duration-300 hover:bg-white/80"
+          >
+            <span class="flex h-5 w-5 items-center justify-center rounded-full bg-blue/10 text-xs text-blue">{i + 1}</span>
+            {s.short}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>('[data-service-link]');
+  const setActive = (slug: string) =>
+    links.forEach((a) => {
+      const on = a.dataset.serviceLink === slug;
+      a.classList.toggle('!bg-blue', on);
+      a.classList.toggle('!text-white', on);
+      a.classList.toggle('shadow-[var(--shadow-glow-blue)]', on);
+      if (on) {
+        const list = a.closest('ul');
+        list?.scrollTo({ left: a.offsetLeft - (list.clientWidth - a.clientWidth) / 2, behavior: 'smooth' });
+      }
+    });
+  const io = new IntersectionObserver(
+    (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+    { rootMargin: '-45% 0px -50% 0px' },
+  );
+  links.forEach((a) => {
+    const section = document.getElementById(a.dataset.serviceLink!);
+    if (section) io.observe(section);
+  });
+</script>

@@ -31,6 +31,10 @@ import { business, services } from '../data/site';
   </div>
 
   <p id="quote-error" class="mt-4 hidden font-medium text-red-700" role="alert">Add your name and suburb so we can prepare your quote.</p>
+  <div id="quote-sent" class="mt-4 hidden items-start gap-3 rounded-2xl border border-whatsapp/20 bg-whatsapp/10 px-4 py-3 text-ink" role="status">
+    <Icon name="check" class="mt-0.5 h-5 w-5 shrink-0 text-whatsapp" />
+    <span><strong class="font-semibold">WhatsApp is open with your message.</strong> Just press send and we'll get back to you.</span>
+  </div>
 
   <button type="submit" class="btn btn-whatsapp mt-6 w-full text-lg sm:w-auto"><Icon name="whatsapp" /> Send on WhatsApp</button>
   <p class="mt-4 text-sm text-stone">Prefer email? Write to <a class="text-blue underline" href={`mailto:${business.email}`}>{business.email}</a>.</p>
@@ -59,5 +63,8 @@ import { business, services } from '../data/site';
     ].filter(Boolean);
     const url = `https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(lines.join('\n'))}`;
     window.open(url, '_blank', 'noopener');
+    const sent = document.getElementById('quote-sent');
+    sent?.classList.remove('hidden');
+    sent?.classList.add('flex');
   });
 </script>

@@ -1,12 +1,12 @@
 ---
 import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
-import { services, whatsappLink } from '../data/site';
+import { services, serviceExtras, whatsappLink } from '../data/site';
 import { workImage } from '../lib/images';
 ---
 <div>
   {services.map((s, i) => (
-    <section id={s.slug} class:list={['section isolate overflow-hidden', i % 2 === 1 && 'bg-water-soft']}>
+    <section id={s.slug} class:list={['section isolate scroll-mt-36 overflow-hidden', i % 2 === 1 && 'bg-water-soft']}>
       <div class="container-x grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div class:list={['relative', i % 2 === 1 && 'lg:order-2']} data-reveal="zoom">
           <div class="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] bg-blue/10 blur-2xl" aria-hidden="true"></div>
@@ -21,6 +21,12 @@ import { workImage } from '../lib/images';
         <div data-reveal="rise">
           <h2 class="h2">{s.title}</h2>
           <p class="lede">{s.summary}</p>
+          {serviceExtras[s.slug] && (
+            <p class="glass mt-6 flex items-start gap-3 rounded-2xl px-5 py-4 text-ink">
+              <Icon name="drop" class="mt-0.5 h-5 w-5 shrink-0 text-blue" />
+              <span><strong class="font-semibold text-navy">Good for:</strong> {serviceExtras[s.slug].goodFor}</span>
+            </p>
+          )}
           <h3 class="mt-8 text-xl font-semibold">What's included</h3>
           <ul class="mt-4 space-y-3" data-stagger="left" data-step="90">
             {s.includes.map((item) => (

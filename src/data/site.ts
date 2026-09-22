@@ -208,3 +208,27 @@ export const faqs = [
     a: 'Yes. We work within about 100 km of Centurion, including Midrand, Pretoria and Johannesburg. If your area is not listed, send us a message and we will confirm.',
   },
 ];
+
+// Short clips from real jobs. Files live in public/videos (already web-ready H.264 MP4).
+export const videos = [
+  {
+    src: '/videos/borehole-water-strike.mp4',
+    poster: '/videos/borehole-water-strike.jpg',
+    title: 'Water rising in a newly drilled borehole',
+    body: 'The moment that matters: water coming up through a fresh borehole on a customer’s property.',
+  },
+  {
+    src: '/videos/pump-test.mp4',
+    poster: '/videos/pump-test.jpg',
+    title: 'Pressure pump tested before handover',
+    body: 'Every system is run and checked for flow and pressure before we hand it over.',
+  },
+];
+
+// Extra service details used on the Services page.
+export const serviceExtras: Record<string, { goodFor: string }> = {
+  'borehole-drilling': { goodFor: 'Homes, smallholdings and businesses that want their own water supply.' },
+  'pump-installation': { goodFor: 'New boreholes, and existing boreholes with a weak, noisy or failed pump.' },
+  'water-purification': { goodFor: 'Water that is brown, hard, smells or leaves marks on taps and basins.' },
+  'plumbing-connections': { goodFor: 'Connecting tanks, borehole and municipal supply so they work as one.' },
+};

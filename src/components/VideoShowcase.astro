@@ -1,0 +1,95 @@
+---
+// Real job clips in phone-style glass frames. Videos load only when scrolled to,
+// play muted on loop while visible, and pause when off-screen to save data.
+import Icon from './Icon.astro';
+import { videos, whatsappLink } from '../data/site';
+interface Props { title?: string; intro?: string; tone?: 'dark' | 'light' }
+const {
+  title = 'See it working',
+  intro = 'Short clips from recent jobs. No stock footage, just our team at work.',
+  tone = 'dark',
+} = Astro.props;
+const dark = tone === 'dark';
+---
+<section class:list={['section isolate overflow-hidden', dark ? 'bg-navy-deep text-white' : 'bg-water']}>
+  {dark && (
+    <>
+      <div class="pointer-events-none absolute -left-32 top-1/4 -z-10 h-96 w-96 rounded-full bg-blue/35 blur-3xl" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute -right-24 bottom-0 -z-10 h-80 w-80 rounded-full bg-sky/20 blur-3xl" aria-hidden="true"></div>
+    </>
+  )}
+  <div class="container-x grid items-center gap-14 lg:grid-cols-[1fr_1.35fr]">
+    <div data-reveal="left">
+      <h2 class:list={['h2', dark && '!text-white']}>{title}</h2>
+      <p class:list={['lede', dark && '!text-white/75']}>{intro}</p>
+      <a href={whatsappLink()} class="btn btn-whatsapp mt-8" target="_blank" rel="noopener"><Icon name="whatsapp" /> Get a quote on WhatsApp</a>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 sm:gap-6" data-stagger="rise" data-step="180">
+      {videos.map((v, i) => (
+        <figure class:list={['group', i === 1 && 'mt-10 sm:mt-16']}>
+          <div class:list={['relative overflow-hidden rounded-[1.75rem] p-1.5', dark ? 'glass-dark shadow-[var(--shadow-deep)]' : 'glass !shadow-[var(--shadow-lift)]']}>
+            <video
+              class="js-autoplay aspect-[9/16] w-full rounded-[1.4rem] bg-navy object-cover"
+              poster={v.poster}
+              muted
+              loop
+              playsinline
+              preload="none"
+              aria-label={v.title}
+            >
+              <source src={v.src} type="video/mp4" />
+            </video>
+            <button
+              type="button"
+              class="js-sound absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white backdrop-blur-md transition hover:bg-white/35"
+              aria-label="Turn sound on"
+              aria-pressed="false"
+            >
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path class="js-sound-wave hidden" d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/><path class="js-sound-off" d="m23 9-6 6M17 9l6 6"/></svg>
+            </button>
+          </div>
+          <figcaption class="mt-4 px-1">
+            <span class:list={['block font-display text-xl font-semibold leading-tight', dark ? 'text-white' : 'text-navy']}>{v.title}</span>
+            <span class:list={['mt-1 block text-sm', dark ? 'text-white/70' : 'text-stone']}>{v.body}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll<HTMLVideoElement>('video.js-autoplay').forEach((video) => {
+    if (reduce) {
+      video.controls = true; // let the visitor choose to play
+      return;
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (video.preload === 'none') { video.preload = 'auto'; video.load(); }
+          video.play().catch(() => (video.controls = true));
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.35 },
+    );
+    io.observe(video);
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.js-sound').forEach((btn) => {
+    const video = btn.parentElement?.querySelector('video');
+    btn.addEventListener('click', () => {
+      if (!video) return;
+      video.muted = !video.muted;
+      if (!video.muted) video.play().catch(() => {});
+      btn.setAttribute('aria-pressed', String(!video.muted));
+      btn.setAttribute('aria-label', video.muted ? 'Turn sound on' : 'Turn sound off');
+      btn.querySelector('.js-sound-wave')?.classList.toggle('hidden', video.muted);
+      btn.querySelector('.js-sound-off')?.classList.toggle('hidden', !video.muted);
+    });
+  });
+</script>

@@ -19,6 +19,7 @@ Astro + Tailwind CSS v4, fully static, no backend.
 - `src/components/PhotoPlaceholder.astro`: branded stand-in for photos not supplied yet.
 - `public/brand/`: logo SVGs. `brand-exports/` has PNGs for WhatsApp Business, Facebook and Google Business Profile.
 - `scripts/generate-logo.py`: source for the logo (text outlined from Barlow Condensed, SIL OFL).
+- `public/videos/`: job clips shown on Home and Services (web-ready MP4 + poster JPG).
 - `raw-media/`: original client videos, not deployed.
 
 ## Adding the drilling and team photos
@@ -40,6 +41,7 @@ so leads land directly on the owner's phone and no personal data is stored on th
 - [ ] Replace placeholder testimonials with real customer reviews
 - [ ] Drilling rig and team photos (placeholders on Our Work and About)
 - [ ] Paul happy to be named on the About page
+- [ ] Confirm Paul offers commercial reverse osmosis plants (listed under Water purification)
 - [ ] Register domain (urgencyboreholes.co.za) in the client's name, update `site` in `astro.config.mjs`
 - [ ] Deploy (Vercel or Cloudflare Pages) and connect the domain
 - [ ] Google Business Profile with the same name, phone and address

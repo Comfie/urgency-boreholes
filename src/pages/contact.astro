@@ -4,8 +4,14 @@ import PageHeader from '../components/PageHeader.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import Icon from '../components/Icon.astro';
 import { business, whatsappLink, telLink } from '../data/site';
+import CtaBand from '../components/CtaBand.astro';
 const a = business.address;
 const mapQuery = encodeURIComponent(`${a.street}, ${a.suburb}, ${a.city}`);
+const nextSteps = [
+  { title: 'We reply on WhatsApp', body: 'We confirm your area and ask a few quick questions about the property.' },
+  { title: 'Site visit', body: 'We check the ground, access for equipment and how you plan to use the water.' },
+  { title: 'Written quote', body: 'You get an itemised quote. No work starts until you are happy with it.' },
+];
 ---
 <Layout
   title="Contact Us for a Borehole Quote"
@@ -49,4 +55,38 @@ const mapQuery = encodeURIComponent(`${a.street}, ${a.suburb}, ${a.city}`);
       <QuoteForm />
     </div>
   </section>
+
+  <section class="section pt-0 bg-water-soft">
+    <div class="container-x grid gap-10 lg:grid-cols-2">
+      <div data-reveal="left">
+        <h2 class="h2">What happens after you message us</h2>
+        <ol class="mt-8 space-y-4" data-stagger="rise" data-step="130">
+          {nextSteps.map((step, i) => (
+            <li class="glass card-lift flex gap-4 rounded-2xl p-5">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue font-display text-lg font-bold text-white shadow-[var(--shadow-glow-blue)]">{i + 1}</span>
+              <span>
+                <span class="block font-display text-xl font-semibold text-navy">{step.title}</span>
+                <span class="mt-1 block text-stone">{step.body}</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div class="relative min-h-80 overflow-hidden rounded-3xl shadow-[var(--shadow-lift)] ring-1 ring-white/70" data-reveal="zoom">
+        <iframe
+          title={`Map showing ${business.name} in ${a.suburb}, ${a.city}`}
+          src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+          class="absolute inset-0 h-full w-full border-0"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <div class="glass pointer-events-none absolute bottom-4 left-4 right-4 flex items-center gap-3 rounded-2xl px-4 py-3 sm:right-auto">
+          <Icon name="pin" class="h-5 w-5 text-blue" />
+          <span class="text-sm font-semibold text-navy">Based in {a.suburb}, {a.city}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Rather talk it through?" body="Call us and we'll explain the options for your property, no obligation." />
 </Layout>
