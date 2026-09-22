@@ -2,6 +2,11 @@
 import Icon from './Icon.astro';
 import { business, services, telLink, whatsappLink } from '../data/site';
 const year = new Date().getFullYear();
+// Developer credit. TODO: point to the Comfort Labs website once it is live.
+const credit = {
+  name: 'Comfort Labs',
+  href: `https://wa.me/27849192581?text=${encodeURIComponent("Hi Comfort Labs, I saw the Urgency Boreholes website and I'd like a website too.")}`,
+};
 const a = business.address;
 ---
 <footer class="relative overflow-hidden bg-gradient-to-b from-navy to-navy-deep text-white/85">
@@ -28,6 +33,17 @@ const a = business.address;
     </div>
   </div>
   <div class="border-t border-white/15">
-    <p class="container-x py-5 text-sm text-white/65">© {year} {business.legalName}. All rights reserved.</p>
+    <div class="container-x flex flex-col gap-2 py-5 text-sm text-white/65 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} {business.legalName}. All rights reserved.</p>
+      <p>
+        Website by
+        <a
+          href={credit.href}
+          class="font-semibold text-white/85 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white hover:decoration-white"
+          target="_blank"
+          rel="noopener"
+        >{credit.name}</a>
+      </p>
+    </div>
   </div>
 </footer>
