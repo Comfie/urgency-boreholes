@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import WorkGallery from '../components/WorkGallery.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+<Layout
+  title="Our Work: Borehole & Water System Installations"
+  description="Photos of borehole pump installations, water filtration, softeners and purification systems completed by Urgency Boreholes in Gauteng."
+>
+  <PageHeader
+    title="Our work"
+    intro="Borehole, pump and water treatment installations completed by our team for homes and businesses."
+  />
+  <WorkGallery showHeading={false} />
+  <CtaBand title="Want a system like this?" />
+</Layout>

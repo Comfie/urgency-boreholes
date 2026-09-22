@@ -1,0 +1,18 @@
+---
+import { steps } from '../data/site';
+---
+<section class="section bg-mist">
+  <div class="container-x">
+    <h2 class="h2">How it works</h2>
+    <p class="lede">A clear process, so you know what happens next and what it costs before we start.</p>
+    <ol class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      {steps.map((step, i) => (
+        <li class="relative">
+          <span class="font-display text-6xl font-bold text-blue/25" aria-hidden="true">{i + 1}</span>
+          <h3 class="mt-1 text-2xl font-semibold">{step.title}</h3>
+          <p class="mt-2 text-stone">{step.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

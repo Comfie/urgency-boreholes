@@ -1,0 +1,16 @@
+---
+// Brand mark: a water drop with a drill bit descending into it.
+// Kept inline so it inherits colours and needs no extra request.
+interface Props { class?: string; drop?: string; bit?: string; id?: string }
+const { class: className = 'h-10 w-auto', drop = 'var(--color-blue)', bit = '#ffffff', id = 'mark' } = Astro.props;
+const clip = `ub-bit-${id}`;
+---
+<svg class={className} viewBox="0 0 100 120" aria-hidden="true">
+  <path d="M50 2C50 2 10 50 10 78a40 40 0 0 0 80 0C90 50 50 2 50 2Z" fill={drop} />
+  <rect x="45.5" y="26" width="9" height="22" rx="1.5" fill={bit} />
+  <clipPath id={clip}><path d="M40 50h20l-10 58Z" /></clipPath>
+  <g clip-path={`url(#${clip})`}>
+    <path d="M40 50h20l-10 58Z" fill={bit} />
+    <path d="M30 64 70 50v5.5L30 69.5Zm0 14 40-14v5.5L30 83.5Zm0 14 40-14v5.5L30 97.5Z" fill={drop} />
+  </g>
+</svg>

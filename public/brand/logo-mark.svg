@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 110" width="300" height="330"><g transform="translate(0 0) scale(1)">
+  <path d="M50 2 C50 2 10 50 10 78 A40 40 0 0 0 90 78 C90 50 50 2 50 2 Z" fill="#1C74D9"/>
+  <rect x="45.5" y="26" width="9" height="22" rx="1.5" fill="#FFFFFF"/>
+  <clipPath id="ub-bit"><path d="M40 50 H60 L50 108 Z"/></clipPath>
+  <g clip-path="url(#ub-bit)"><path d="M40 50 H60 L50 108 Z" fill="#FFFFFF"/>
+  <path d="M30 64 L70 50 V55.5 L30 69.5 Z M30 78 L70 64 V69.5 L30 83.5 Z M30 92 L70 78 V83.5 L30 97.5 Z" fill="#1C74D9"/></g>
+</g></svg>

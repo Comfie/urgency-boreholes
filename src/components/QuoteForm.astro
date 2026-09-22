@@ -1,0 +1,63 @@
+---
+// Quote request that opens WhatsApp with the details filled in.
+// No backend, no stored personal data, and the lead lands straight on the owner's phone.
+import Icon from './Icon.astro';
+import { business, services } from '../data/site';
+---
+<form id="quote-form" class="rounded-xl border border-line bg-white p-6 shadow-sm sm:p-8" data-wa={business.whatsapp} novalidate>
+  <h2 class="text-3xl font-bold">Request a quote</h2>
+  <p class="mt-2 text-stone">Fill this in and we'll open WhatsApp with your message ready to send.</p>
+
+  <div class="mt-6 grid gap-5 sm:grid-cols-2">
+    <label class="block">
+      <span class="font-semibold">Your name</span>
+      <input name="name" required autocomplete="name" class="mt-2 w-full rounded-md border border-line px-4 py-3 focus:border-blue" />
+    </label>
+    <label class="block">
+      <span class="font-semibold">Suburb</span>
+      <input name="suburb" required autocomplete="address-level2" placeholder="e.g. Midrand" class="mt-2 w-full rounded-md border border-line px-4 py-3 focus:border-blue" />
+    </label>
+    <label class="block sm:col-span-2">
+      <span class="font-semibold">What do you need?</span>
+      <select name="service" class="mt-2 w-full rounded-md border border-line bg-white px-4 py-3 focus:border-blue">
+        {services.map((s) => <option>{s.short}</option>)}
+        <option>Not sure yet, I need advice</option>
+      </select>
+    </label>
+    <label class="block sm:col-span-2">
+      <span class="font-semibold">Details</span>{" "}<span class="font-normal text-stone">(optional)</span>
+      <textarea name="details" rows="4" placeholder="e.g. New borehole for a house with a garden and pool" class="mt-2 w-full rounded-md border border-line px-4 py-3 focus:border-blue"></textarea>
+    </label>
+  </div>
+
+  <p id="quote-error" class="mt-4 hidden font-medium text-red-700" role="alert">Add your name and suburb so we can prepare your quote.</p>
+
+  <button type="submit" class="btn btn-whatsapp mt-6 w-full text-lg sm:w-auto"><Icon name="whatsapp" /> Send on WhatsApp</button>
+  <p class="mt-4 text-sm text-stone">Prefer email? Write to <a class="text-blue underline" href={`mailto:${business.email}`}>{business.email}</a>.</p>
+</form>
+
+<script>
+  const form = document.getElementById('quote-form') as HTMLFormElement | null;
+  const error = document.getElementById('quote-error');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = String(data.get('name') ?? '').trim();
+    const suburb = String(data.get('suburb') ?? '').trim();
+    if (!name || !suburb) {
+      error?.classList.remove('hidden');
+      return;
+    }
+    error?.classList.add('hidden');
+    const details = String(data.get('details') ?? '').trim();
+    const lines = [
+      'Hi Urgency Boreholes, I would like a quote.',
+      `Name: ${name}`,
+      `Suburb: ${suburb}`,
+      `Service: ${data.get('service')}`,
+      details && `Details: ${details}`,
+    ].filter(Boolean);
+    const url = `https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(lines.join('\n'))}`;
+    window.open(url, '_blank', 'noopener');
+  });
+</script>

@@ -1,0 +1,119 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
+import Icon from '../components/Icon.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { business, services } from '../data/site';
+import { workImage } from '../lib/images';
+
+const years = business.yearsDrilling;
+const words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+const yearsWord = words[years] ?? String(years);
+const YearsWord = yearsWord.charAt(0).toUpperCase() + yearsWord.slice(1);
+
+const facts = [
+  { value: `${years} years`, label: 'drilling boreholes in Gauteng' },
+  { value: `${services.length} services`, label: 'handled by one team, from drilling to the tap' },
+  { value: `${business.radiusKm} km`, label: 'service radius around Centurion' },
+];
+
+const promises = [
+  {
+    title: 'We respond quickly',
+    body: 'No water is an emergency for a household or a business. We reply fast, and we tell you honestly when we can be on site.',
+  },
+  {
+    title: 'You know the cost upfront',
+    body: 'After the site visit you get a written, itemised quote: drilling, casing, pump, filtration and plumbing. No surprise extras halfway through.',
+  },
+  {
+    title: 'One team takes responsibility',
+    body: 'We drill, equip and connect the borehole ourselves. If something needs attention, you call one number and we sort it out.',
+  },
+  {
+    title: 'The job is finished properly',
+    body: 'We test flow and pressure before handover, show you how your system works and leave your yard clean.',
+  },
+];
+---
+<Layout
+  title="About Us: Borehole Drillers in Centurion"
+  description={`Urgency Boreholes has been drilling boreholes in Centurion, Midrand and Johannesburg for ${years} years. One team for drilling, pumps, water purification and plumbing.`}
+>
+  <PageHeader
+    title="About Urgency Boreholes"
+    intro={`${YearsWord} years of drilling boreholes across Gauteng, and one simple rule: when it comes to your water, we treat it as urgent.`}
+  />
+
+  <section class="section">
+    <div class="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="max-w-xl space-y-5 text-lg">
+        <h2 class="h2">Built by a driller</h2>
+        <p>
+          {business.name} was started by {business.founder}, who has spent the last {yearsWord} years drilling boreholes around
+          Centurion, Midrand and Johannesburg. That time on the rig taught him how the ground behaves in different parts of Gauteng,
+          which equipment lasts, and what customers really need when their taps run dry.
+        </p>
+        <p>
+          It also showed him a common problem. Homeowners were dealing with one company to drill, another to supply the pump,
+          someone else for filtration and a plumber to connect it all. When something went wrong, everyone blamed someone else.
+        </p>
+        <p>
+          So we do all of it ourselves. We drill the borehole, install the pump and control box, fit the filtration or softening
+          system and connect everything to your tanks and house plumbing. One team, one quote and one number to call.
+        </p>
+        <p>
+          The name says what we stand for. Water cuts, rising municipal bills and dirty water are urgent problems,
+          and we treat them that way.
+        </p>
+      </div>
+      <div>
+        <!-- TODO: replace with a photo of Paul and the crew at the rig -->
+        <PhotoPlaceholder label="Paul and the crew at the rig" class="aspect-[4/5]" id="about-team" />
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-line bg-mist">
+    <dl class="container-x grid gap-8 py-12 sm:grid-cols-3">
+      {facts.map((f) => (
+        <div class="border-l-4 border-blue pl-5">
+          <dt class="sr-only">{f.label}</dt>
+          <dd class="font-display text-4xl font-bold text-navy">{f.value}</dd>
+          <dd class="mt-1 text-stone">{f.label}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <section class="section">
+    <div class="container-x grid items-start gap-12 lg:grid-cols-[1fr_1.4fr]">
+      <div>
+        <h2 class="h2">What you can expect from us</h2>
+        <p class="lede">These are the standards we hold ourselves to on every job, big or small.</p>
+        <Image
+          src={workImage('tank-filtration-stone-wall.jpg')}
+          alt="Water tank with blue filter vessels and pump housing installed on a brick base"
+          widths={[480, 720]}
+          sizes="(min-width: 1024px) 420px, 100vw"
+          class="mt-8 hidden aspect-[4/5] w-full rounded-xl object-cover lg:block"
+        />
+      </div>
+      <div class="grid content-start gap-x-8 gap-y-10 sm:grid-cols-2">
+        {promises.map((p) => (
+          <div class="border-t-2 border-blue pt-5">
+            <Icon name="check" class="h-7 w-7 text-blue" />
+            <h3 class="mt-3 text-2xl font-semibold">{p.title}</h3>
+            <p class="mt-2 text-stone">{p.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+  <CtaBand title="Talk to a driller, not a call centre" body="WhatsApp us your suburb and what you need. We'll arrange a site visit and send you a written quote." />
+</Layout>

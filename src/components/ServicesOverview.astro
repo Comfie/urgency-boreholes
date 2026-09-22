@@ -1,0 +1,34 @@
+---
+import { Image } from 'astro:assets';
+import { services } from '../data/site';
+import { workImage } from '../lib/images';
+---
+<section class="section" id="services">
+  <div class="container-x">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <h2 class="h2">Everything your borehole needs</h2>
+        <p class="lede">You deal with one team from the first site visit to clean water in the house.</p>
+      </div>
+      <a href="/services" class="btn btn-outline">View all services</a>
+    </div>
+
+    <div class="mt-12 grid gap-8 sm:grid-cols-2">
+      {services.map((s, i) => (
+        <a href={`/services#${s.slug}`} class="group grid grid-cols-[7rem_1fr] gap-5 rounded-lg p-3 -m-3 hover:bg-mist sm:grid-cols-[9rem_1fr]">
+          <Image
+            src={workImage(s.image)}
+            alt=""
+            widths={[160, 320]}
+            sizes="9rem"
+            class="aspect-square w-full rounded-md object-cover"
+          />
+          <div>
+            <h3 class="text-2xl font-semibold group-hover:text-blue sm:text-3xl">{s.title}</h3>
+            <p class="mt-2 text-stone">{s.summary}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

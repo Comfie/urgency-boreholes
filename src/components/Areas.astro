@@ -1,0 +1,23 @@
+---
+import Icon from './Icon.astro';
+import { areas, business, whatsappLink } from '../data/site';
+---
+<section class="section" id="areas">
+  <div class="container-x grid gap-12 lg:grid-cols-[1fr_1.3fr]">
+    <div>
+      <h2 class="h2">Areas we serve</h2>
+      <p class="lede">
+        We are based in {business.address.suburb}, {business.address.city}, and work within {business.radiusKm} km of Centurion.
+      </p>
+      <p class="mt-4 text-stone">Not sure if you're in range? Send us your suburb and we'll confirm.</p>
+      <a href={whatsappLink('Hi Urgency Boreholes, do you work in my area? My suburb is: ')} class="btn btn-primary mt-6" target="_blank" rel="noopener">Check my area</a>
+    </div>
+    <ul class="grid content-start gap-x-6 gap-y-1 sm:grid-cols-2">
+      {areas.map((area) => (
+        <li class="flex items-center gap-3 border-b border-line py-3 text-lg font-medium">
+          <Icon name="pin" class="h-5 w-5 text-blue" /> {area}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

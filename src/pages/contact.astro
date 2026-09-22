@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import Icon from '../components/Icon.astro';
+import { business, whatsappLink, telLink } from '../data/site';
+const a = business.address;
+const mapQuery = encodeURIComponent(`${a.street}, ${a.suburb}, ${a.city}`);
+---
+<Layout
+  title="Contact Us for a Borehole Quote"
+  description="Contact Urgency Boreholes on WhatsApp or phone for a borehole, pump, water purification or plumbing quote in Centurion, Midrand and Johannesburg."
+>
+  <PageHeader title="Get a quote" intro="WhatsApp is the fastest way to reach us. Send your suburb and what you need, and we'll get back to you." />
+
+  <section class="section">
+    <div class="container-x grid gap-12 lg:grid-cols-[1fr_1.3fr]">
+      <div>
+        <ul class="space-y-6 text-lg">
+          <li>
+            <a href={whatsappLink()} class="flex items-center gap-4 font-semibold hover:text-blue" target="_blank" rel="noopener">
+              <span class="flex h-12 w-12 items-center justify-center rounded-full bg-whatsapp text-white"><Icon name="whatsapp" class="h-6 w-6" /></span>
+              WhatsApp {business.phoneDisplay}
+            </a>
+          </li>
+          <li>
+            <a href={telLink} class="flex items-center gap-4 font-semibold hover:text-blue">
+              <span class="flex h-12 w-12 items-center justify-center rounded-full bg-blue text-white"><Icon name="phone" class="h-6 w-6" /></span>
+              Call {business.phoneDisplay}
+            </a>
+          </li>
+          <li>
+            <a href={`mailto:${business.email}`} class="flex items-center gap-4 font-semibold hover:text-blue">
+              <span class="flex h-12 w-12 items-center justify-center rounded-full bg-navy text-white"><Icon name="mail" class="h-6 w-6" /></span>
+              {business.email}
+            </a>
+          </li>
+          <li class="flex items-center gap-4">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-mist text-navy"><Icon name="pin" class="h-6 w-6" /></span>
+            <span>{a.street}, {a.suburb}, {a.city}</span>
+          </li>
+          <li class="flex items-center gap-4">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-mist text-navy"><Icon name="clock" class="h-6 w-6" /></span>
+            <span>{business.hours}</span>
+          </li>
+        </ul>
+        <a class="mt-8 inline-block text-blue underline" href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`} target="_blank" rel="noopener">Open in Google Maps</a>
+      </div>
+      <QuoteForm />
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,20 @@
+---
+import { testimonials } from '../data/site';
+// TODO: testimonials are placeholders (see src/data/site.ts). Replace before launch.
+---
+<section class="section bg-mist">
+  <div class="container-x">
+    <h2 class="h2">What our customers say</h2>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {testimonials.map((t) => (
+        <figure class="flex flex-col rounded-lg border border-line bg-white p-7">
+          <blockquote class="flex-1 text-lg">"{t.quote}"</blockquote>
+          <figcaption class="mt-6 border-t border-line pt-4">
+            <span class="block font-semibold text-navy">{t.name}, {t.place}</span>
+            <span class="text-sm text-stone">{t.service}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

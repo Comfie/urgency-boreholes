@@ -1,0 +1,9 @@
+---
+// Fixed call / WhatsApp bar on small screens: most visitors arrive on a phone.
+import Icon from './Icon.astro';
+import { whatsappLink, telLink } from '../data/site';
+---
+<div class="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 gap-2 border-t border-line bg-white p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] md:hidden">
+  <a href={telLink} class="btn btn-outline"><Icon name="phone" /> Call</a>
+  <a href={whatsappLink()} class="btn btn-whatsapp" target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
+</div>

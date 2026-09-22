@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+import { work } from '../data/site';
+import { workImage } from '../lib/images';
+import PhotoPlaceholder from './PhotoPlaceholder.astro';
+
+interface Props { limit?: number; showHeading?: boolean }
+const { limit, showHeading = true } = Astro.props;
+// Home page preview shows real photos only; placeholders appear on the full gallery page.
+const items = limit ? work.filter((w) => w.image).slice(0, limit) : work;
+---
+<section class="section" id="work">
+  <div class="container-x">
+    {showHeading && (
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <h2 class="h2">Recent work</h2>
+          <p class="lede">Borehole, pump and water treatment installations completed by our team.</p>
+        </div>
+        {limit && <a href="/our-work" class="btn btn-outline">See all projects</a>}
+      </div>
+    )}
+    <ul class="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3">
+      {items.map((item, i) => (
+        <li>
+          <figure>
+            {item.image ? <Image
+              src={workImage(item.image!)}
+              alt={item.alt}
+              widths={[320, 480, 640]}
+              sizes="(min-width: 768px) 33vw, 50vw"
+              class="aspect-square w-full rounded-lg object-cover"
+            /> : <PhotoPlaceholder label={item.caption} id={`work-${i}`} />}
+            <figcaption class="mt-2 text-sm font-medium text-stone">{item.caption}</figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

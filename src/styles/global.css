@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@import "@fontsource/barlow/400.css";
+@import "@fontsource/barlow/500.css";
+@import "@fontsource/barlow/600.css";
+@import "@fontsource/barlow-condensed/600.css";
+@import "@fontsource/barlow-condensed/700.css";
+
+@theme {
+  /* Brand: blue and white */
+  --color-navy: #0a3d7a;      /* deep water: headings, dark sections */
+  --color-blue: #1c74d9;      /* signal blue: buttons, links */
+  --color-blue-dark: #155cb0; /* hover */
+  --color-mist: #eaf3fc;      /* aquifer tint: alternate sections */
+  --color-ink: #0e2240;       /* body text */
+  --color-stone: #5b6b80;     /* muted text */
+  --color-line: #d5e3f3;      /* borders */
+  --color-whatsapp: #0f7d42;  /* WhatsApp button only, darkened for AA contrast with white */
+
+  --font-sans: "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  h1, h2, h3 {
+    @apply font-display text-navy;
+    line-height: 1.05;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  :focus-visible {
+    outline: 3px solid var(--color-blue);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+}
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-6xl px-5 sm:px-8; }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 font-semibold transition-colors;
+    min-height: 48px;
+  }
+  .btn-primary { @apply bg-blue text-white hover:bg-blue-dark; }
+  .btn-whatsapp { @apply bg-whatsapp text-white hover:brightness-95; }
+  .btn-outline { @apply border-2 border-navy text-navy hover:bg-navy hover:text-white; }
+  .btn-light { @apply bg-white text-navy hover:bg-mist; }
+  .section { @apply py-16 sm:py-24; }
+  .h2 { @apply text-4xl sm:text-5xl font-bold; }
+  .lede { @apply mt-4 max-w-2xl text-lg text-stone; }
+}

@@ -1,0 +1,28 @@
+---
+import { faqs } from '../data/site';
+---
+<section class="section" id="faq">
+  <div class="container-x grid gap-12 lg:grid-cols-[1fr_1.6fr]">
+    <div>
+      <h2 class="h2">Common questions</h2>
+      <p class="lede">Something else you want to know? Ask us on WhatsApp.</p>
+    </div>
+    <div class="divide-y divide-line border-y border-line">
+      {faqs.map((f) => (
+        <details class="group py-2">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-4 text-xl font-semibold text-navy [&::-webkit-details-marker]:hidden">
+            {f.q}
+            <span class="text-2xl text-blue transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+          </summary>
+          <p class="pb-5 text-stone">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+})} />

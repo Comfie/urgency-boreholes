@@ -1,43 +1,46 @@
-# Astro Starter Kit: Minimal
+# Urgency Boreholes website
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Lead-generation site for Urgency Boreholes (borehole drilling, pumps, water purification, plumbing).
+Astro + Tailwind CSS v4, fully static, no backend.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commands
 
-## 🚀 Project Structure
+| Command | What it does |
+|---|---|
+| `npm run dev` | Local dev server at http://localhost:4321 |
+| `npm run build` | Production build to `dist/` |
+| `npm run preview` | Serve the production build locally |
+| `npm run brand` | Export logo PNGs, OG image and touch icon from the SVGs in `public/brand` |
 
-Inside of your Astro project, you'll see the following folders and files:
+## Where things live
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- `src/data/site.ts`: **all business details and copy** (phone, WhatsApp, services, areas, FAQs, reviews, gallery). Edit here first.
+- `src/assets/work/`: project photos (optimised to WebP automatically at build).
+- `src/components/PhotoPlaceholder.astro`: branded stand-in for photos not supplied yet.
+- `public/brand/`: logo SVGs. `brand-exports/` has PNGs for WhatsApp Business, Facebook and Google Business Profile.
+- `scripts/generate-logo.py`: source for the logo (text outlined from Barlow Condensed, SIL OFL).
+- `raw-media/`: original client videos, not deployed.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Adding the drilling and team photos
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+1. Drop the photo into `src/assets/work/` (e.g. `drilling-rig.jpg`).
+2. In `src/data/site.ts`, add `image: 'drilling-rig.jpg'` to the matching gallery item marked `TODO`.
+3. About page: replace the `PhotoPlaceholder` in `src/pages/about.astro` with an `<Image>`.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Leads
 
-## 🧞 Commands
+No form backend. The quote form and every CTA open WhatsApp with a pre-filled message,
+so leads land directly on the owner's phone and no personal data is stored on the site.
 
-All commands are run from the root of the project, from a terminal:
+## Before launch checklist
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- [ ] Real phone and WhatsApp number in `src/data/site.ts`
+- [ ] Email address (set up mailbox or use the owner's)
+- [ ] Confirm working hours
+- [ ] Replace placeholder testimonials with real customer reviews
+- [ ] Drilling rig and team photos (placeholders on Our Work and About)
+- [ ] Paul happy to be named on the About page
+- [ ] Register domain (urgencyboreholes.co.za) in the client's name, update `site` in `astro.config.mjs`
+- [ ] Deploy (Vercel or Cloudflare Pages) and connect the domain
+- [ ] Google Business Profile with the same name, phone and address
+- [ ] Submit sitemap in Google Search Console

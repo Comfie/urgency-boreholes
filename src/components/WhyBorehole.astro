@@ -1,0 +1,31 @@
+---
+import Icon from './Icon.astro';
+const reasons = [
+  {
+    title: 'Water when the supply is off',
+    body: 'Keep taps, toilets and the kitchen running during municipal outages and maintenance shutdowns.',
+  },
+  {
+    title: 'Lower municipal water use',
+    body: 'Use borehole water for the garden, pool and household, and pay for less water from the municipality.',
+  },
+  {
+    title: 'Added value for your property',
+    body: 'A working borehole with filtration is a feature buyers and tenants look for.',
+  },
+];
+---
+<section class="section bg-navy text-white">
+  <div class="container-x">
+    <h2 class="h2 max-w-3xl !text-white">Stop waiting for the municipal water to come back</h2>
+    <div class="mt-12 grid gap-10 md:grid-cols-3">
+      {reasons.map((r) => (
+        <div class="border-t-2 border-blue pt-6">
+          <Icon name="drop" class="h-7 w-7 text-[#8fc1f5]" />
+          <h3 class="mt-4 text-2xl font-semibold !text-white">{r.title}</h3>
+          <p class="mt-2 text-white/80">{r.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
