@@ -1,18 +1,24 @@
 ---
 import { steps } from '../data/site';
 ---
-<section class="section bg-mist">
-  <div class="container-x">
-    <h2 class="h2">How it works</h2>
-    <p class="lede">A clear process, so you know what happens next and what it costs before we start.</p>
-    <ol class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-      {steps.map((step, i) => (
-        <li class="relative">
-          <span class="font-display text-6xl font-bold text-blue/25" aria-hidden="true">{i + 1}</span>
-          <h3 class="mt-1 text-2xl font-semibold">{step.title}</h3>
-          <p class="mt-2 text-stone">{step.body}</p>
-        </li>
-      ))}
-    </ol>
+<section class="section bg-water overflow-hidden">
+  <div class="container-x relative">
+    <div data-reveal>
+      <h2 class="h2">How it works</h2>
+      <p class="lede">A clear process, so you know what happens next and what it costs before we start.</p>
+    </div>
+    <div class="relative mt-14">
+      <!-- Connecting pipe between the steps on large screens -->
+      <div class="absolute left-0 right-0 top-[2.1rem] hidden h-0.5 bg-gradient-to-r from-blue/0 via-blue/40 to-blue/0 lg:block" aria-hidden="true"></div>
+      <ol class="relative grid gap-6 md:grid-cols-2 lg:grid-cols-4" data-stagger data-step="150">
+        {steps.map((step, i) => (
+          <li class="glass card-lift rounded-2xl p-6">
+            <span class="relative flex h-11 w-11 items-center justify-center rounded-full bg-blue font-display text-xl font-bold text-white shadow-[var(--shadow-glow-blue)] ring-4 ring-white" aria-hidden="true">{i + 1}</span>
+            <h3 class="mt-5 text-2xl font-semibold">{step.title}</h3>
+            <p class="mt-2 text-stone">{step.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
   </div>
 </section>

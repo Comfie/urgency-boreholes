@@ -3,7 +3,7 @@
 import Icon from './Icon.astro';
 import { whatsappLink, telLink } from '../data/site';
 ---
-<div class="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 gap-2 border-t border-line bg-white p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] md:hidden">
+<div class="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 gap-2 glass border-x-0 border-b-0 p-2 !shadow-[0_-12px_30px_-18px_rgb(10_61_122/0.5)] pb-[max(0.5rem,env(safe-area-inset-bottom))] md:hidden">
   <a href={telLink} class="btn btn-outline"><Icon name="phone" /> Call</a>
   <a href={whatsappLink()} class="btn btn-whatsapp" target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
 </div>

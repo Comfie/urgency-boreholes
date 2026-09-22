@@ -3,9 +3,9 @@ import { Image } from 'astro:assets';
 import { services } from '../data/site';
 import { workImage } from '../lib/images';
 ---
-<section class="section" id="services">
+<section class="section bg-water-soft" id="services">
   <div class="container-x">
-    <div class="flex flex-wrap items-end justify-between gap-6">
+    <div class="flex flex-wrap items-end justify-between gap-6" data-reveal>
       <div>
         <h2 class="h2">Everything your borehole needs</h2>
         <p class="lede">You deal with one team from the first site visit to clean water in the house.</p>
@@ -13,19 +13,26 @@ import { workImage } from '../lib/images';
       <a href="/services" class="btn btn-outline">View all services</a>
     </div>
 
-    <div class="mt-12 grid gap-8 sm:grid-cols-2">
-      {services.map((s, i) => (
-        <a href={`/services#${s.slug}`} class="group grid grid-cols-[7rem_1fr] gap-5 rounded-lg p-3 -m-3 hover:bg-mist sm:grid-cols-[9rem_1fr]">
-          <Image
-            src={workImage(s.image)}
-            alt=""
-            widths={[160, 320]}
-            sizes="9rem"
-            class="aspect-square w-full rounded-md object-cover"
-          />
-          <div>
-            <h3 class="text-2xl font-semibold group-hover:text-blue sm:text-3xl">{s.title}</h3>
-            <p class="mt-2 text-stone">{s.summary}</p>
+    <div class="mt-12 grid gap-7 md:grid-cols-2" data-stagger>
+      {services.map((s) => (
+        <a href={`/services#${s.slug}`} class="card card-lift group flex flex-col overflow-hidden sm:flex-row">
+          <div class="img-zoom relative aspect-[16/10] sm:aspect-auto sm:min-h-60 sm:w-2/5 sm:shrink-0">
+            <Image
+              src={workImage(s.image)}
+              alt=""
+              widths={[320, 480, 640]}
+              sizes="(min-width: 640px) 240px, 100vw"
+              class="h-full w-full object-cover sm:absolute sm:inset-0"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-navy-deep/40 to-transparent"></div>
+          </div>
+          <div class="flex flex-1 flex-col p-6">
+            <h3 class="text-2xl font-semibold transition-colors group-hover:text-blue sm:text-[1.7rem]">{s.title}</h3>
+            <p class="mt-2 flex-1 text-stone">{s.summary}</p>
+            <span class="mt-5 inline-flex items-center gap-2 font-semibold text-blue">
+              See what's included
+              <svg class="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </span>
           </div>
         </a>
       ))}

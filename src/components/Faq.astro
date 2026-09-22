@@ -3,23 +3,34 @@ import { faqs } from '../data/site';
 ---
 <section class="section" id="faq">
   <div class="container-x grid gap-12 lg:grid-cols-[1fr_1.6fr]">
-    <div>
+    <div data-reveal="left">
       <h2 class="h2">Common questions</h2>
       <p class="lede">Something else you want to know? Ask us on WhatsApp.</p>
     </div>
-    <div class="divide-y divide-line border-y border-line">
+    <div class="space-y-3" data-stagger="rise" data-step="80">
       {faqs.map((f) => (
-        <details class="group py-2">
-          <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-4 text-xl font-semibold text-navy [&::-webkit-details-marker]:hidden">
+        <details class="faq group rounded-2xl border border-line/80 bg-white/70 px-6 shadow-[var(--shadow-soft)] backdrop-blur transition-shadow duration-500 open:shadow-[var(--shadow-lift)]">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-xl font-semibold text-navy [&::-webkit-details-marker]:hidden">
             {f.q}
-            <span class="text-2xl text-blue transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mist text-xl text-blue transition-transform duration-500 group-open:rotate-45" aria-hidden="true">+</span>
           </summary>
-          <p class="pb-5 text-stone">{f.a}</p>
+          <p class="pb-6 text-stone">{f.a}</p>
         </details>
       ))}
     </div>
   </div>
 </section>
+
+<style>
+  /* Smooth open/close where the browser supports animating details content */
+  .faq::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size 0.5s var(--ease-soft), content-visibility 0.5s allow-discrete;
+  }
+  .faq[open]::details-content { block-size: auto; }
+  :global(html) { interpolate-size: allow-keywords; }
+</style>
 
 <script type="application/ld+json" set:html={JSON.stringify({
   '@context': 'https://schema.org',

@@ -53,6 +53,8 @@ const localBusiness = {
     <meta name="twitter:card" content="summary_large_image" />
 
     <script type="application/ld+json" set:html={JSON.stringify(localBusiness)} />
+    <!-- Flag JS early so reveal-on-scroll content is only hidden when the script can show it again -->
+    <script is:inline>document.documentElement.classList.add('js')</script>
   </head>
   <body class="pb-[4.5rem] md:pb-0">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded focus:bg-white focus:px-4 focus:py-2">Skip to content</a>
@@ -60,5 +62,8 @@ const localBusiness = {
     <main id="main"><slot /></main>
     <Footer />
     <MobileActionBar />
+    <script>
+      import '../scripts/motion';
+    </script>
   </body>
 </html>

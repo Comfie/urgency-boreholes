@@ -9,8 +9,10 @@
 @theme {
   /* Brand: blue and white */
   --color-navy: #0a3d7a;      /* deep water: headings, dark sections */
+  --color-navy-deep: #072c59; /* darkest layer for overlays */
   --color-blue: #1c74d9;      /* signal blue: buttons, links */
   --color-blue-dark: #155cb0; /* hover */
+  --color-sky: #8fc1f5;       /* light accent on dark backgrounds */
   --color-mist: #eaf3fc;      /* aquifer tint: alternate sections */
   --color-ink: #0e2240;       /* body text */
   --color-stone: #5b6b80;     /* muted text */
@@ -19,6 +21,15 @@
 
   --font-sans: "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+
+  /* Elevation: blue-tinted shadows so depth feels like water, not grey smudges */
+  --shadow-soft: 0 1px 2px rgb(10 61 122 / 0.06), 0 10px 28px -12px rgb(10 61 122 / 0.22);
+  --shadow-lift: 0 2px 6px rgb(10 61 122 / 0.08), 0 28px 56px -20px rgb(10 61 122 / 0.42);
+  --shadow-deep: 0 40px 80px -30px rgb(7 44 89 / 0.6);
+  --shadow-glow: 0 10px 28px -10px rgb(15 125 66 / 0.65);
+  --shadow-glow-blue: 0 10px 28px -10px rgb(28 116 217 / 0.7);
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
@@ -30,6 +41,7 @@
     @apply bg-white font-sans text-ink antialiased;
     font-size: 1.0625rem;
     line-height: 1.6;
+    overflow-x: clip; /* decorative blooms and floating badges never cause sideways scroll */
   }
   h1, h2, h3 {
     @apply font-display text-navy;
@@ -38,28 +50,124 @@
     text-wrap: balance;
   }
   p { text-wrap: pretty; }
+  ::selection { background: rgb(28 116 217 / 0.2); }
   :focus-visible {
     outline: 3px solid var(--color-blue);
     outline-offset: 3px;
-    border-radius: 4px;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    *, *::before, *::after { animation: none !important; transition: none !important; }
+    border-radius: 6px;
   }
 }
 
 @layer components {
   .container-x { @apply mx-auto w-full max-w-6xl px-5 sm:px-8; }
-  .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 font-semibold transition-colors;
-    min-height: 48px;
-  }
-  .btn-primary { @apply bg-blue text-white hover:bg-blue-dark; }
-  .btn-whatsapp { @apply bg-whatsapp text-white hover:brightness-95; }
-  .btn-outline { @apply border-2 border-navy text-navy hover:bg-navy hover:text-white; }
-  .btn-light { @apply bg-white text-navy hover:bg-mist; }
-  .section { @apply py-16 sm:py-24; }
-  .h2 { @apply text-4xl sm:text-5xl font-bold; }
+  .section { @apply relative py-18 sm:py-26; }
+  .h2 { @apply text-4xl font-bold sm:text-5xl; }
   .lede { @apply mt-4 max-w-2xl text-lg text-stone; }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 font-semibold;
+    min-height: 48px;
+    transition: transform 0.35s var(--ease-soft), box-shadow 0.35s var(--ease-soft), background-color 0.2s, color 0.2s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0); }
+  .btn-primary { @apply bg-blue text-white hover:bg-blue-dark; box-shadow: var(--shadow-glow-blue); }
+  .btn-whatsapp { @apply bg-whatsapp text-white; box-shadow: var(--shadow-glow); }
+  .btn-whatsapp:hover { background: #0c6d39; }
+  .btn-outline { @apply border-2 border-navy/80 bg-white/40 text-navy backdrop-blur-sm hover:bg-navy hover:text-white; }
+  .btn-light { @apply bg-white text-navy hover:bg-mist; box-shadow: var(--shadow-soft); }
+  .btn-ghost-light { @apply border border-white/40 bg-white/10 text-white backdrop-blur-md hover:bg-white/20; }
+
+  /* Surfaces */
+  .glass {
+    background: rgb(255 255 255 / 0.66);
+    border: 1px solid rgb(255 255 255 / 0.75);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+  }
+  .glass-dark {
+    background: linear-gradient(160deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.03));
+    border: 1px solid rgb(255 255 255 / 0.14);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .card {
+    @apply rounded-2xl bg-white;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.6s var(--ease-soft), box-shadow 0.6s var(--ease-soft);
+  }
+  .card-lift { transition: transform 0.6s var(--ease-soft), box-shadow 0.6s var(--ease-soft); }
+  .card-lift:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); }
+  .img-zoom { overflow: hidden; }
+  .img-zoom img { transition: transform 1.4s var(--ease-soft); }
+  .group:hover .img-zoom img { transform: scale(1.06); }
+
+  /* Water-light backgrounds */
+  .bg-water {
+    background:
+      radial-gradient(55% 60% at 88% 0%, rgb(28 116 217 / 0.2), transparent 70%),
+      radial-gradient(45% 55% at 0% 100%, rgb(10 61 122 / 0.12), transparent 70%),
+      linear-gradient(180deg, #f4f9ff 0%, #e7f1fc 100%);
+  }
+  .bg-water-soft {
+    background:
+      radial-gradient(40% 50% at 100% 20%, rgb(28 116 217 / 0.1), transparent 70%),
+      linear-gradient(180deg, #ffffff 0%, #f3f8fe 100%);
+  }
+}
+
+/* ── Header: clear glass that firms up once you scroll ───────────── */
+[data-header] {
+  background: rgb(255 255 255 / 0.55);
+  border-bottom: 1px solid rgb(255 255 255 / 0.6);
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  transition: background-color 0.4s, box-shadow 0.4s, border-color 0.4s;
+}
+[data-header].is-scrolled {
+  background: rgb(255 255 255 / 0.82);
+  border-bottom-color: rgb(213 227 243 / 0.9);
+  box-shadow: 0 10px 30px -18px rgb(10 61 122 / 0.45);
+}
+
+/* ── Scroll reveal: elements drop gently into place ──────────────── */
+.js [data-reveal] {
+  /* Uses the individual translate/scale properties so hover effects that use
+     transform (card lifts) keep working after an element has revealed. */
+  opacity: 0;
+  translate: 0 -26px;
+  filter: blur(6px);
+  transition:
+    opacity 0.9s var(--ease-soft),
+    translate 1.2s var(--ease-soft),
+    scale 1.2s var(--ease-soft),
+    filter 0.9s var(--ease-soft),
+    transform 0.6s var(--ease-soft),
+    box-shadow 0.6s var(--ease-soft);
+  transition-delay: var(--d, 0ms);
+}
+.js [data-reveal="rise"] { translate: 0 32px; }
+.js [data-reveal="zoom"] { translate: none; scale: 0.94; }
+.js [data-reveal="left"] { translate: -32px 0; }
+.js [data-reveal].is-in { opacity: 1; translate: none; scale: none; filter: none; }
+
+/* Hero depth gauge fill and water ripple */
+.gauge-fill { transform: scaleY(0); animation: drill 2.2s var(--ease-soft) 0.5s forwards; }
+@keyframes drill { to { transform: scaleY(1); } }
+.ripple { animation: ripple 3.2s ease-out 2.4s infinite; opacity: 0; }
+.ripple-2 { animation-delay: 3.8s; }
+@keyframes ripple {
+  0% { transform: scale(0.4); opacity: 0.6; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js [data-reveal] { opacity: 1; translate: none; scale: none; filter: none; transition: none; }
+  .gauge-fill { transform: none; animation: none; }
+  .ripple { display: none; }
+  .btn:hover, .card-lift:hover { transform: none; }
+  .group:hover .img-zoom img { transform: none; }
 }

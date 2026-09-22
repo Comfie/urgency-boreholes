@@ -13,10 +13,10 @@ const mapQuery = encodeURIComponent(`${a.street}, ${a.suburb}, ${a.city}`);
 >
   <PageHeader title="Get a quote" intro="WhatsApp is the fastest way to reach us. Send your suburb and what you need, and we'll get back to you." />
 
-  <section class="section">
-    <div class="container-x grid gap-12 lg:grid-cols-[1fr_1.3fr]">
+  <section class="section bg-water-soft">
+    <div class="container-x grid items-start gap-10 lg:grid-cols-[1fr_1.3fr]">
       <div>
-        <ul class="space-y-6 text-lg">
+        <ul class="glass space-y-6 rounded-3xl p-7 text-lg" data-stagger="left" data-step="90">
           <li>
             <a href={whatsappLink()} class="flex items-center gap-4 font-semibold hover:text-blue" target="_blank" rel="noopener">
               <span class="flex h-12 w-12 items-center justify-center rounded-full bg-whatsapp text-white"><Icon name="whatsapp" class="h-6 w-6" /></span>

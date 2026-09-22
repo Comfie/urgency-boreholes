@@ -4,29 +4,29 @@
 import Icon from './Icon.astro';
 import { business, services } from '../data/site';
 ---
-<form id="quote-form" class="rounded-xl border border-line bg-white p-6 shadow-sm sm:p-8" data-wa={business.whatsapp} novalidate>
+<form id="quote-form" class="glass rounded-3xl p-6 !shadow-[var(--shadow-lift)] sm:p-8" data-reveal="rise" data-wa={business.whatsapp} novalidate>
   <h2 class="text-3xl font-bold">Request a quote</h2>
   <p class="mt-2 text-stone">Fill this in and we'll open WhatsApp with your message ready to send.</p>
 
   <div class="mt-6 grid gap-5 sm:grid-cols-2">
     <label class="block">
       <span class="font-semibold">Your name</span>
-      <input name="name" required autocomplete="name" class="mt-2 w-full rounded-md border border-line px-4 py-3 focus:border-blue" />
+      <input name="name" required autocomplete="name" class="mt-2 w-full rounded-xl border border-line bg-white/80 px-4 py-3 outline-none transition-shadow focus:border-blue focus:shadow-[0_0_0_4px_rgb(28_116_217/0.15)]" />
     </label>
     <label class="block">
       <span class="font-semibold">Suburb</span>
-      <input name="suburb" required autocomplete="address-level2" placeholder="e.g. Midrand" class="mt-2 w-full rounded-md border border-line px-4 py-3 focus:border-blue" />
+      <input name="suburb" required autocomplete="address-level2" placeholder="e.g. Midrand" class="mt-2 w-full rounded-xl border border-line bg-white/80 px-4 py-3 outline-none transition-shadow focus:border-blue focus:shadow-[0_0_0_4px_rgb(28_116_217/0.15)]" />
     </label>
     <label class="block sm:col-span-2">
       <span class="font-semibold">What do you need?</span>
-      <select name="service" class="mt-2 w-full rounded-md border border-line bg-white px-4 py-3 focus:border-blue">
+      <select name="service" class="mt-2 w-full rounded-xl border border-line bg-white/80 px-4 py-3 outline-none transition-shadow focus:border-blue focus:shadow-[0_0_0_4px_rgb(28_116_217/0.15)]">
         {services.map((s) => <option>{s.short}</option>)}
         <option>Not sure yet, I need advice</option>
       </select>
     </label>
     <label class="block sm:col-span-2">
       <span class="font-semibold">Details</span>{" "}<span class="font-normal text-stone">(optional)</span>
-      <textarea name="details" rows="4" placeholder="e.g. New borehole for a house with a garden and pool" class="mt-2 w-full rounded-md border border-line px-4 py-3 focus:border-blue"></textarea>
+      <textarea name="details" rows="4" placeholder="e.g. New borehole for a house with a garden and pool" class="mt-2 w-full rounded-xl border border-line bg-white/80 px-4 py-3 outline-none transition-shadow focus:border-blue focus:shadow-[0_0_0_4px_rgb(28_116_217/0.15)]"></textarea>
     </label>
   </div>
 

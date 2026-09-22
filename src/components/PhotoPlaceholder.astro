@@ -5,7 +5,7 @@ import LogoMark from './LogoMark.astro';
 interface Props { label: string; class?: string; id: string }
 const { label, class: className = 'aspect-square', id } = Astro.props;
 ---
-<div class:list={['flex w-full flex-col items-center justify-center gap-3 rounded-lg bg-navy p-6 text-center', className]} role="img" aria-label={label}>
+<div class:list={['relative flex w-full flex-col items-center justify-center gap-3 overflow-hidden rounded-lg bg-gradient-to-br from-navy via-navy to-blue-dark p-6 text-center', className]} role="img" aria-label={label}>
   <LogoMark class="h-14 w-auto opacity-90" drop="#ffffff" bit="var(--color-navy)" id={`ph-${id}`} />
   <span class="font-display text-lg font-semibold text-white/85">{label}</span>
 </div>

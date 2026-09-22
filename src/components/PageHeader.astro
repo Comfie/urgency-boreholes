@@ -2,8 +2,9 @@
 interface Props { title: string; intro?: string }
 const { title, intro } = Astro.props;
 ---
-<section class="bg-mist">
-  <div class="container-x py-14 sm:py-20">
+<section class="bg-water relative overflow-hidden">
+  <div class="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-blue/20 blur-3xl" aria-hidden="true"></div>
+  <div class="container-x relative py-16 sm:py-22" data-stagger data-step="120">
     <h1 class="text-5xl font-bold sm:text-6xl">{title}</h1>
     {intro && <p class="lede">{intro}</p>}
   </div>

@@ -4,27 +4,28 @@ import Icon from './Icon.astro';
 import { services, whatsappLink } from '../data/site';
 import { workImage } from '../lib/images';
 ---
-<div class="divide-y divide-line">
+<div>
   {services.map((s, i) => (
-    <section id={s.slug} class="section">
+    <section id={s.slug} class:list={['section isolate overflow-hidden', i % 2 === 1 && 'bg-water-soft']}>
       <div class="container-x grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-        <div class:list={[i % 2 === 1 && 'lg:order-2']}>
+        <div class:list={['relative', i % 2 === 1 && 'lg:order-2']} data-reveal="zoom">
+          <div class="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] bg-blue/10 blur-2xl" aria-hidden="true"></div>
           <Image
             src={workImage(s.image)}
             alt={s.imageAlt}
             widths={[480, 720, 960]}
             sizes="(min-width: 1024px) 540px, 100vw"
-            class="aspect-[4/3] w-full rounded-xl object-cover"
+            class="aspect-[4/3] w-full rounded-3xl object-cover shadow-[var(--shadow-deep)] ring-1 ring-white/60"
           />
         </div>
-        <div>
+        <div data-reveal="rise">
           <h2 class="h2">{s.title}</h2>
           <p class="lede">{s.summary}</p>
           <h3 class="mt-8 text-xl font-semibold">What's included</h3>
-          <ul class="mt-4 space-y-3">
+          <ul class="mt-4 space-y-3" data-stagger="left" data-step="90">
             {s.includes.map((item) => (
               <li class="flex items-start gap-3">
-                <Icon name="check" class="mt-1 h-5 w-5 shrink-0 text-blue" />
+                <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue/10 text-blue"><Icon name="check" class="h-3.5 w-3.5" /></span>
                 <span>{item}</span>
               </li>
             ))}

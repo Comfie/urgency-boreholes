@@ -15,9 +15,9 @@ const yearsWord = words[years] ?? String(years);
 const YearsWord = yearsWord.charAt(0).toUpperCase() + yearsWord.slice(1);
 
 const facts = [
-  { value: `${years} years`, label: 'drilling boreholes in Gauteng' },
-  { value: `${services.length} services`, label: 'handled by one team, from drilling to the tap' },
-  { value: `${business.radiusKm} km`, label: 'service radius around Centurion' },
+  { value: years, unit: 'years', label: 'drilling boreholes in Gauteng' },
+  { value: services.length, unit: 'services', label: 'handled by one team, from drilling to the tap' },
+  { value: business.radiusKm, unit: 'km', label: 'service radius around Centurion' },
 ];
 
 const promises = [
@@ -50,7 +50,7 @@ const promises = [
 
   <section class="section">
     <div class="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-      <div class="max-w-xl space-y-5 text-lg">
+      <div class="max-w-xl space-y-5 text-lg" data-stagger="rise" data-step="110">
         <h2 class="h2">Built by a driller</h2>
         <p>
           {business.name} was started by {business.founder}, who has spent the last {yearsWord} years drilling boreholes around
@@ -70,19 +70,20 @@ const promises = [
           and we treat them that way.
         </p>
       </div>
-      <div>
+      <div class="relative" data-reveal="zoom">
+        <div class="pointer-events-none absolute -inset-5 -z-10 rounded-[2rem] bg-blue/15 blur-2xl" aria-hidden="true"></div>
         <!-- TODO: replace with a photo of Paul and the crew at the rig -->
-        <PhotoPlaceholder label="Paul and the crew at the rig" class="aspect-[4/5]" id="about-team" />
+        <PhotoPlaceholder label="Paul and the crew at the rig" class="aspect-[4/5] !rounded-3xl shadow-[var(--shadow-deep)]" id="about-team" />
       </div>
     </div>
   </section>
 
-  <section class="border-y border-line bg-mist">
-    <dl class="container-x grid gap-8 py-12 sm:grid-cols-3">
+  <section class="bg-water relative overflow-hidden">
+    <dl class="container-x grid gap-6 py-14 sm:grid-cols-3" data-stagger data-step="140">
       {facts.map((f) => (
-        <div class="border-l-4 border-blue pl-5">
+        <div class="glass card-lift rounded-2xl p-6">
           <dt class="sr-only">{f.label}</dt>
-          <dd class="font-display text-4xl font-bold text-navy">{f.value}</dd>
+          <dd class="font-display text-5xl font-bold text-navy"><span data-count={f.value}>{f.value}</span> <span class="text-3xl text-blue">{f.unit}</span></dd>
           <dd class="mt-1 text-stone">{f.label}</dd>
         </div>
       ))}
@@ -91,7 +92,7 @@ const promises = [
 
   <section class="section">
     <div class="container-x grid items-start gap-12 lg:grid-cols-[1fr_1.4fr]">
-      <div>
+      <div data-reveal="left">
         <h2 class="h2">What you can expect from us</h2>
         <p class="lede">These are the standards we hold ourselves to on every job, big or small.</p>
         <Image
@@ -99,13 +100,13 @@ const promises = [
           alt="Water tank with blue filter vessels and pump housing installed on a brick base"
           widths={[480, 720]}
           sizes="(min-width: 1024px) 420px, 100vw"
-          class="mt-8 hidden aspect-[4/5] w-full rounded-xl object-cover lg:block"
+          class="mt-8 hidden aspect-[4/5] w-full rounded-3xl object-cover shadow-[var(--shadow-lift)] lg:block"
         />
       </div>
-      <div class="grid content-start gap-x-8 gap-y-10 sm:grid-cols-2">
+      <div class="grid content-start gap-6 sm:grid-cols-2" data-stagger data-step="120">
         {promises.map((p) => (
-          <div class="border-t-2 border-blue pt-5">
-            <Icon name="check" class="h-7 w-7 text-blue" />
+          <div class="card card-lift p-6">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-blue text-white shadow-[var(--shadow-glow-blue)]"><Icon name="check" class="h-5 w-5" /></span>
             <h3 class="mt-3 text-2xl font-semibold">{p.title}</h3>
             <p class="mt-2 text-stone">{p.body}</p>
           </div>

@@ -12,7 +12,7 @@ const items = limit ? work.filter((w) => w.image).slice(0, limit) : work;
 <section class="section" id="work">
   <div class="container-x">
     {showHeading && (
-      <div class="flex flex-wrap items-end justify-between gap-6">
+      <div class="flex flex-wrap items-end justify-between gap-6" data-reveal>
         <div>
           <h2 class="h2">Recent work</h2>
           <p class="lede">Borehole, pump and water treatment installations completed by our team.</p>
@@ -20,18 +20,27 @@ const items = limit ? work.filter((w) => w.image).slice(0, limit) : work;
         {limit && <a href="/our-work" class="btn btn-outline">See all projects</a>}
       </div>
     )}
-    <ul class="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3">
+    <ul class="mt-12 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3" data-stagger="zoom" data-step="90">
       {items.map((item, i) => (
         <li>
-          <figure>
-            {item.image ? <Image
-              src={workImage(item.image!)}
-              alt={item.alt}
-              widths={[320, 480, 640]}
-              sizes="(min-width: 768px) 33vw, 50vw"
-              class="aspect-square w-full rounded-lg object-cover"
-            /> : <PhotoPlaceholder label={item.caption} id={`work-${i}`} />}
-            <figcaption class="mt-2 text-sm font-medium text-stone">{item.caption}</figcaption>
+          <figure class="group relative overflow-hidden rounded-2xl shadow-[var(--shadow-soft)] transition-shadow duration-700 hover:shadow-[var(--shadow-lift)]">
+            {item.image ? (
+              <div class="img-zoom">
+                <Image
+                  src={workImage(item.image)}
+                  alt={item.alt}
+                  widths={[320, 480, 640]}
+                  sizes="(min-width: 768px) 33vw, 50vw"
+                  class="aspect-square w-full object-cover"
+                />
+              </div>
+            ) : (
+              <PhotoPlaceholder label={item.caption} id={`work-${i}`} class="aspect-square !rounded-none" />
+            )}
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-deep/70 via-navy-deep/0 to-transparent opacity-80 transition-opacity duration-700 group-hover:opacity-100"></div>
+            <figcaption class="absolute inset-x-3 bottom-3 rounded-xl border border-white/20 bg-white/15 px-3 py-2 text-sm font-semibold text-white backdrop-blur-md transition-transform duration-700 ease-[var(--ease-soft)] group-hover:-translate-y-1">
+              {item.caption}
+            </figcaption>
           </figure>
         </li>
       ))}

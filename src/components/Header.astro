@@ -11,7 +11,7 @@ const nav = [
 ];
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
-<div class="hidden bg-navy text-sm text-white/90 md:block">
+<div class="hidden bg-gradient-to-r from-navy-deep via-navy to-navy-deep text-sm text-white/90 md:block">
   <div class="container-x flex h-10 items-center justify-between">
     <p class="flex items-center gap-2"><Icon name="pin" class="h-4 w-4" /> Serving Centurion, Midrand, Pretoria and Johannesburg</p>
     <p class="flex items-center gap-5">
@@ -21,7 +21,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
   </div>
 </div>
 
-<header class="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
+<header data-header class="sticky top-0 z-40">
   <div class="container-x flex h-18 items-center justify-between gap-6">
     <a href="/" class="shrink-0" aria-label={`${business.name} home`}>
       <img src="/brand/logo-horizontal.svg" alt={business.name} width="200" height="70" class="h-11 w-auto sm:h-12" />
@@ -33,7 +33,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
           <li>
             <a
               href={item.href}
-              class:list={['py-2 hover:text-blue', path === item.href && 'text-blue']}
+              class:list={['relative py-2 transition-colors hover:text-blue after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-blue after:transition-transform after:duration-500 hover:after:scale-x-100', path === item.href && 'text-blue after:scale-x-100']}
               aria-current={path === item.href ? 'page' : undefined}
             >{item.label}</a>
           </li>
@@ -47,10 +47,10 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       </a>
 
       <details class="group relative lg:hidden">
-        <summary class="flex h-12 w-12 cursor-pointer list-none items-center justify-center rounded-md border border-line text-navy [&::-webkit-details-marker]:hidden" aria-label="Open menu">
+        <summary class="flex h-12 w-12 cursor-pointer list-none items-center justify-center rounded-lg border border-white/70 bg-white/60 text-navy shadow-[var(--shadow-soft)] [&::-webkit-details-marker]:hidden" aria-label="Open menu">
           <Icon name="menu" class="h-6 w-6" />
         </summary>
-        <nav aria-label="Mobile" class="absolute right-0 top-14 w-64 rounded-lg border border-line bg-white p-2 shadow-xl">
+        <nav aria-label="Mobile" class="glass absolute right-0 top-14 w-64 rounded-2xl p-2 !shadow-[var(--shadow-lift)]">
           <ul>
             {nav.map((item) => (
               <li><a href={item.href} class="block rounded-md px-4 py-3 font-medium hover:bg-mist">{item.label}</a></li>

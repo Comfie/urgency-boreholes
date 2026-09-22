@@ -8,16 +8,21 @@ const {
   body = 'Send us a WhatsApp with your suburb and what you need. We will arrange a site visit and a written quote.',
 } = Astro.props;
 ---
-<section class="bg-blue text-white">
-  <div class="container-x grid items-center gap-8 py-14 md:grid-cols-[auto_1fr_auto]">
-    <LogoMark class="hidden h-20 w-auto md:block" drop="#ffffff" bit="var(--color-blue)" id="cta" />
+<section class="relative isolate overflow-hidden bg-gradient-to-br from-blue via-blue-dark to-navy text-white">
+  <div class="pointer-events-none absolute -left-20 -top-24 -z-10 h-72 w-72 rounded-full bg-sky/40 blur-3xl" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute -bottom-32 right-10 -z-10 h-80 w-80 rounded-full bg-navy-deep/60 blur-3xl" aria-hidden="true"></div>
+  <div class="container-x grid items-center gap-8 py-16 md:grid-cols-[auto_1fr_auto]" data-reveal>
+    <div class="relative hidden md:block">
+      <span class="ripple absolute inset-0 m-auto h-20 w-20 rounded-full border-2 border-white/40"></span>
+      <LogoMark class="relative h-20 w-auto drop-shadow-[0_10px_20px_rgb(7_44_89/0.5)]" drop="#ffffff" bit="var(--color-blue)" id="cta" />
+    </div>
     <div>
       <h2 class="text-4xl font-bold !text-white sm:text-5xl">{title}</h2>
       <p class="mt-3 max-w-2xl text-white/90">{body}</p>
     </div>
     <div class="flex flex-wrap gap-3">
       <a href={whatsappLink()} class="btn btn-light" target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp us</a>
-      <a href={telLink} class="btn border-2 border-white text-white hover:bg-white/10"><Icon name="phone" /> {business.phoneDisplay}</a>
+      <a href={telLink} class="btn btn-ghost-light"><Icon name="phone" /> {business.phoneDisplay}</a>
     </div>
   </div>
 </section>
