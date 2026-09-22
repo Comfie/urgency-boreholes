@@ -6,7 +6,7 @@
 export const business = {
   name: 'Urgency Boreholes',
   legalName: 'Urgency Boreholes', // TODO: confirm registered company name (CIPC)
-  url: 'https://urgencyboreholes.co.za', // TODO: update once domain is registered
+  url: 'https://urgency-boreholes.vercel.app', // TODO: switch to https://urgencyboreholes.co.za once registered
   // TODO: replace with Paul's real numbers. Display format + international format
   phoneDisplay: '071 234 5678',
   phoneTel: '+27712345678',
