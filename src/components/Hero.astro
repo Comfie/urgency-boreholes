@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
+import RatingBadge from './RatingBadge.astro';
 import { business, whatsappLink, telLink } from '../data/site';
 import { workImage } from '../lib/images';
 
@@ -34,6 +35,8 @@ const ticks = [0, 20, 40, 60, 80];
         <a href={telLink} class="btn btn-outline text-lg"><Icon name="phone" /> Call {business.phoneDisplay}</a>
       </div>
 
+      <RatingBadge class="mt-6" />
+
       <ul class="mt-9 grid gap-3 sm:grid-cols-2" data-stagger="rise" data-step="90">
         {points.map((p) => (
           <li class="flex items-start gap-3">
@@ -65,8 +68,8 @@ const ticks = [0, 20, 40, 60, 80];
       <div class="relative">
         <div class="overflow-hidden rounded-3xl shadow-[var(--shadow-deep)] ring-1 ring-white/60">
           <Image
-            src={workImage('filtration-system-tank.jpg')}
-            alt="Borehole water system with a storage tank, softeners and filtration installed beside a house"
+            src={workImage('drilling-rig-residential.jpg')}
+            alt="Urgency Boreholes drilling rig and crew drilling a borehole in the driveway of a family home"
             widths={[480, 720, 960]}
             sizes="(min-width: 1024px) 480px, 100vw"
             loading="eager"

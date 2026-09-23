@@ -1,5 +1,6 @@
 ---
-import { steps } from '../data/site';
+import Icon from './Icon.astro';
+import { steps, whatsappLink } from '../data/site';
 ---
 <section class="section bg-water overflow-hidden">
   <div class="container-x relative">
@@ -19,6 +20,10 @@ import { steps } from '../data/site';
           </li>
         ))}
       </ol>
+    </div>
+    <div class="mt-10 flex flex-wrap items-center gap-4" data-reveal="rise">
+      <a href={whatsappLink()} class="btn btn-whatsapp text-lg" target="_blank" rel="noopener"><Icon name="whatsapp" /> Start with step 1</a>
+      <span class="text-stone">Send us your suburb and what you need.</span>
     </div>
   </div>
 </section>

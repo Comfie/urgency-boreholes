@@ -1,11 +1,15 @@
 ---
 import { testimonials } from '../data/site';
+import RatingBadge from './RatingBadge.astro';
 // TODO: testimonials are placeholders (see src/data/site.ts). Replace before launch.
 ---
-<section class="section bg-water overflow-hidden">
+<section class="section overflow-hidden">
   <div class="pointer-events-none absolute left-1/2 top-0 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-blue/10 blur-3xl" aria-hidden="true"></div>
   <div class="container-x relative">
-    <h2 class="h2" data-reveal>What our customers say</h2>
+    <div class="flex flex-wrap items-end justify-between gap-6" data-reveal>
+      <h2 class="h2">What our customers say</h2>
+      <RatingBadge />
+    </div>
     <div class="mt-12 grid gap-6 md:grid-cols-3" data-stagger data-step="140">
       {testimonials.map((t) => (
         <figure class="glass card-lift flex flex-col rounded-2xl p-7">

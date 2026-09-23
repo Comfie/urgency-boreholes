@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
-import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
 import Icon from '../components/Icon.astro';
 import Testimonials from '../components/Testimonials.astro';
 import CtaBand from '../components/CtaBand.astro';
@@ -72,8 +71,13 @@ const promises = [
       </div>
       <div class="relative" data-reveal="zoom">
         <div class="pointer-events-none absolute -inset-5 -z-10 rounded-[2rem] bg-blue/15 blur-2xl" aria-hidden="true"></div>
-        <!-- TODO: replace with a photo of Paul and the crew at the rig -->
-        <PhotoPlaceholder label="Paul and the crew at the rig" class="aspect-[4/5] !rounded-3xl shadow-[var(--shadow-deep)]" id="about-team" />
+        <Image
+          src={workImage('drilling-rig-residential.jpg')}
+          alt="Paul's crew drilling a borehole at a family home with the Urgency Boreholes rig"
+          widths={[480, 720, 960]}
+          sizes="(min-width: 1024px) 540px, 100vw"
+          class="aspect-[4/5] w-full rounded-3xl object-cover shadow-[var(--shadow-deep)] ring-1 ring-white/60"
+        />
       </div>
     </div>
   </section>
@@ -96,8 +100,8 @@ const promises = [
         <h2 class="h2">What you can expect from us</h2>
         <p class="lede">These are the standards we hold ourselves to on every job, big or small.</p>
         <Image
-          src={workImage('tank-filtration-stone-wall.jpg')}
-          alt="Water tank with blue filter vessels and pump housing installed on a brick base"
+          src={workImage('drilling-rig-city.jpg')}
+          alt="Urgency Boreholes drilling rig working on a commercial site in the city"
           widths={[480, 720]}
           sizes="(min-width: 1024px) 420px, 100vw"
           class="mt-8 hidden aspect-[4/5] w-full rounded-3xl object-cover shadow-[var(--shadow-lift)] lg:block"

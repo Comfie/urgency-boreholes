@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
 import { workImage } from '../lib/images';
+import { whatsappLink } from '../data/site';
 const reasons = [
   {
     title: 'Water when the supply is off',
@@ -40,6 +41,10 @@ const reasons = [
           <p class="mt-2 text-white/80">{r.body}</p>
         </div>
       ))}
+    </div>
+    <div class="mt-12 flex flex-wrap items-center gap-4" data-reveal="rise">
+      <a href={whatsappLink("Hi Urgency Boreholes, I'd like to get a borehole. Can you quote me?")} class="btn btn-whatsapp text-lg" target="_blank" rel="noopener"><Icon name="whatsapp" /> Get my borehole quote</a>
+      <span class="text-white/70">Free to ask. We reply on WhatsApp.</span>
     </div>
   </div>
 </section>

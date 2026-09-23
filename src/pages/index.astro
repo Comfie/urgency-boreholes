@@ -1,28 +1,39 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import WhyBorehole from '../components/WhyBorehole.astro';
-import ServicesOverview from '../components/ServicesOverview.astro';
-import Process from '../components/Process.astro';
-import WorkGallery from '../components/WorkGallery.astro';
-import Areas from '../components/Areas.astro';
 import Testimonials from '../components/Testimonials.astro';
+import ServicesOverview from '../components/ServicesOverview.astro';
+import WorkGallery from '../components/WorkGallery.astro';
+import VideoShowcase from '../components/VideoShowcase.astro';
+import WhyBorehole from '../components/WhyBorehole.astro';
+import Process from '../components/Process.astro';
+import Areas from '../components/Areas.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
-import VideoShowcase from '../components/VideoShowcase.astro';
+
+// Section order follows the visitor's decision path:
+// 1. Hero: what, where, proof and a way to act, all above the fold
+// 2. Reviews: "can I trust them?" answered straight away
+// 3. Services: "do they do what I need?"
+// 4. Video then photos: "show me" proof from real jobs
+// 5. Why a borehole: reinforce the value at the point of interest, with a CTA
+// 6. Process: remove the fear of the unknown, ends in a CTA
+// 7. Areas: "do they come to me?"
+// 8. FAQ: last objections (cost, depth, permits)
+// 9. Final CTA
 ---
 <Layout
   title="Borehole Drilling in Centurion, Midrand & Johannesburg"
   description="Urgency Boreholes drills and installs boreholes, pumps, water purification and plumbing for homes and businesses within 100 km of Centurion. WhatsApp us for a quote."
 >
   <Hero />
+  <Testimonials />
   <ServicesOverview />
-  <WhyBorehole />
-  <WorkGallery limit={6} />
   <VideoShowcase />
+  <WorkGallery limit={6} />
+  <WhyBorehole />
   <Process />
   <Areas />
-  <Testimonials />
   <Faq />
   <CtaBand />
 </Layout>

@@ -7,10 +7,9 @@ export const business = {
   name: 'Urgency Boreholes',
   legalName: 'Urgency Boreholes', // TODO: confirm registered company name (CIPC)
   url: 'https://urgency-boreholes.vercel.app', // TODO: switch to https://urgencyboreholes.co.za once registered
-  // TODO: replace with Paul's real numbers. Display format + international format
-  phoneDisplay: '071 234 5678',
-  phoneTel: '+27712345678',
-  whatsapp: '27712345678',
+  phoneDisplay: '061 513 3687',
+  phoneTel: '+27615133687',
+  whatsapp: '27615133687',
   email: 'info@urgencyboreholes.co.za', // TODO: set up mailbox or use Paul's email
   address: {
     street: '6600 Blue Lily Close',
@@ -19,9 +18,12 @@ export const business = {
     province: 'Gauteng',
     country: 'ZA',
   },
-  hours: 'Mon to Sat, 07:00 to 17:00', // TODO: confirm working hours
+  hours: 'Mon to Sat 07:00 to 17:00, Sun until 12:00',
   radiusKm: 100,
-  yearsDrilling: 4,
+  yearsDrilling: 5,
+  // TODO: must match Paul's real Google Business Profile rating before launch.
+  // Add the profile link to `url` so visitors can verify it.
+  rating: { stars: 4, source: 'Google', url: '' },
   founder: 'Paul', // TODO: confirm Paul is happy to be named on the About page
   social: {
     facebook: '', // TODO: add if Paul has pages
@@ -73,8 +75,8 @@ export const services: Service[] = [
       'Drilling, casing and capping',
       'Yield test so you know how much water the borehole delivers',
     ],
-    image: 'borehole-pump-install.jpg',
-    imageAlt: 'Borehole casing and pump cable being installed in a residential garden',
+    image: 'drilling-rig-city.jpg',
+    imageAlt: 'Urgency Boreholes drilling rig truck set up on a paved site in the city',
   },
   {
     slug: 'pump-installation',
@@ -147,7 +149,8 @@ export const steps = [
 export type WorkItem = { image?: string; alt: string; caption: string };
 
 export const work: WorkItem[] = [
-  { alt: 'Drilling rig drilling a borehole on a residential property', caption: 'Borehole drilling on site' }, // TODO: drilling photo
+  { image: 'drilling-rig-residential.jpg', alt: 'Drilling rig and crew drilling a borehole in the driveway of a double-storey home', caption: 'Drilling at a family home' },
+  { image: 'drilling-rig-city.jpg', alt: 'Truck-mounted drilling rig working on a paved commercial site between office buildings', caption: 'Drilling on a commercial site' },
   { image: 'filtration-system-tank.jpg', alt: 'Two blue filter vessels and a three-stage filter connected to a large tank beside a house', caption: 'Tank, softener and filtration system' },
   { image: 'tank-filtration-stone-wall.jpg', alt: 'JoJo tank with blue filter vessels and a pump cover on a brick base', caption: 'Tank with filtration and pump housing' },
   { image: 'three-stage-treatment.jpg', alt: 'Three blue treatment vessels with digital control valves', caption: 'Three-stage water treatment' },
@@ -156,7 +159,7 @@ export const work: WorkItem[] = [
   { image: 'tank-filtration-grey.jpg', alt: 'Grey water tanks connected to blue filters and a pump cover', caption: 'Tanks, filters and pump' },
   { image: 'submersible-pump.jpg', alt: 'Submersible pump laid out before installation', caption: 'Submersible pump ready to go down' },
   { image: 'borehole-pump-install.jpg', alt: 'Borehole casing with cables and pipes during installation', caption: 'Pump installation on site' },
-  { alt: 'Drilling rig and crew at work', caption: 'Our rig and crew' }, // TODO: drilling/team photo
+  { image: 'filtration-softeners-wall.jpg', alt: 'Two blue softener vessels and a filter rack piped in beside a water tank', caption: 'Softeners and filtration' },
 ];
 
 // TODO: PLACEHOLDER REVIEWS. Replace with real customer feedback before launch.

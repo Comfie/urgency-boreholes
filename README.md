@@ -35,13 +35,13 @@ so leads land directly on the owner's phone and no personal data is stored on th
 
 ## Before launch checklist
 
-- [ ] Real phone and WhatsApp number in `src/data/site.ts`
+- [x] Real phone and WhatsApp number in `src/data/site.ts`
 - [ ] Email address (set up mailbox or use the owner's)
-- [ ] Confirm working hours
+- [x] Confirm working hours
 - [ ] Replace placeholder testimonials with real customer reviews
-- [ ] Drilling rig and team photos (placeholders on Our Work and About)
+- [ ] Star rating (`business.rating`) must match Paul's real Google profile; add the profile link
+- [x] Drilling rig photos
 - [ ] Paul happy to be named on the About page
-- [ ] Confirm Paul offers commercial reverse osmosis plants (listed under Water purification)
 - [ ] Register domain (urgencyboreholes.co.za) in the client's name, update `site` in `astro.config.mjs`
 - [ ] Deploy (Vercel or Cloudflare Pages) and connect the domain
 - [ ] Google Business Profile with the same name, phone and address
