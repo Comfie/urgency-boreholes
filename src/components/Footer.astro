@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { business, services, telLink, whatsappLink } from '../data/site';
+import { business, services, telLink, telLink2, whatsappLink } from '../data/site';
 const year = new Date().getFullYear();
 // Developer credit. TODO: point to the Comfort Labs website once it is live.
 const credit = {
@@ -26,6 +26,8 @@ const a = business.address;
       <h2 class="text-xl font-semibold text-white">Contact</h2>
       <ul class="mt-4 space-y-3">
         <li><a class="flex items-center gap-2 hover:text-white" href={telLink}><Icon name="phone" class="h-4 w-4" /> {business.phoneDisplay}</a></li>
+        <li><a class="flex items-center gap-2 hover:text-white" href={telLink2}><Icon name="phone" class="h-4 w-4" /> {business.phone2Display}</a></li>
+        <li class="flex items-center gap-2"><Icon name="clock" class="h-4 w-4" /> {business.hours}</li>
         <li><a class="flex items-center gap-2 hover:text-white" href={whatsappLink()} target="_blank" rel="noopener"><Icon name="whatsapp" class="h-4 w-4" /> WhatsApp us</a></li>
         <li><a class="flex items-center gap-2 hover:text-white" href={`mailto:${business.email}`}><Icon name="mail" class="h-4 w-4" /> {business.email}</a></li>
         <li class="flex items-start gap-2"><Icon name="pin" class="mt-1 h-4 w-4 shrink-0" /> <span>{a.street}, {a.suburb}, {a.city}</span></li>

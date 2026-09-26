@@ -6,10 +6,13 @@
 export const business = {
   name: 'Urgency Boreholes',
   legalName: 'Urgency Boreholes', // TODO: confirm registered company name (CIPC)
-  url: 'https://urgency-boreholes.vercel.app', // TODO: switch to https://urgencyboreholes.co.za once registered
+  url: 'https://urgencyboreholes.co.za',
   phoneDisplay: '061 513 3687',
   phoneTel: '+27615133687',
   whatsapp: '27615133687',
+  // Second line for calls
+  phone2Display: '061 497 7404',
+  phone2Tel: '+27614977404',
   email: 'info@urgencyboreholes.co.za', // TODO: set up mailbox or use Paul's email
   address: {
     street: '6600 Blue Lily Close',
@@ -18,7 +21,7 @@ export const business = {
     province: 'Gauteng',
     country: 'ZA',
   },
-  hours: 'Mon to Sat 07:00 to 17:00, Sun until 12:00',
+  hours: 'Open 24/7',
   radiusKm: 100,
   yearsDrilling: 5,
   // TODO: must match Paul's real Google Business Profile rating before launch.
@@ -36,6 +39,7 @@ export const whatsappLink = (message = "Hi Urgency Boreholes, I'd like a quote."
   `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(message)}`;
 
 export const telLink = `tel:${business.phoneTel}`;
+export const telLink2 = `tel:${business.phone2Tel}`;
 
 export const areas = [
   'Centurion',
@@ -186,6 +190,10 @@ export const testimonials = [
 ];
 
 export const faqs = [
+  {
+    q: 'Can I call you after hours or on weekends?',
+    a: 'Yes. We are available 24/7, including weekends and public holidays. If your pump has stopped or you have no water, call or WhatsApp us any time.',
+  },
   {
     q: 'How much does a borehole cost?',
     a: 'It depends mainly on how deep we need to drill, the ground conditions and the pump and filtration you choose. After a site visit we give you a written quote with each part itemised, so there are no surprises.',

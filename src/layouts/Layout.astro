@@ -17,6 +17,10 @@ const localBusiness = {
   name: business.name,
   url: business.url,
   telephone: business.phoneTel,
+  contactPoint: [
+    { '@type': 'ContactPoint', telephone: business.phoneTel, contactType: 'customer service', availableLanguage: 'English', hoursAvailable: 'Mo-Su 00:00-23:59' },
+    { '@type': 'ContactPoint', telephone: business.phone2Tel, contactType: 'customer service', availableLanguage: 'English' },
+  ],
   email: business.email,
   image: new URL('/brand/og-image.png', business.url).toString(),
   logo: new URL('/brand/logo-social.png', business.url).toString(),
@@ -31,9 +35,9 @@ const localBusiness = {
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      opens: '07:00',
-      closes: '17:00',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '00:00',
+      closes: '23:59',
     },
   ],
   makesOffer: services.map((s) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s.title } })),

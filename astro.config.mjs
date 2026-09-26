@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   // TODO: confirm once the domain is registered
-  site: 'https://urgency-boreholes.vercel.app', // TODO: switch to https://urgencyboreholes.co.za
+  site: 'https://urgencyboreholes.co.za',
   vite: {
     plugins: [tailwindcss()],
   },

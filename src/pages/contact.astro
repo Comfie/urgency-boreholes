@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import Icon from '../components/Icon.astro';
-import { business, whatsappLink, telLink } from '../data/site';
+import { business, whatsappLink, telLink, telLink2 } from '../data/site';
 import CtaBand from '../components/CtaBand.astro';
 const a = business.address;
 const mapQuery = encodeURIComponent(`${a.street}, ${a.suburb}, ${a.city}`);
@@ -36,6 +36,12 @@ const nextSteps = [
             </a>
           </li>
           <li>
+            <a href={telLink2} class="flex items-center gap-4 font-semibold hover:text-blue">
+              <span class="flex h-12 w-12 items-center justify-center rounded-full bg-blue/80 text-white"><Icon name="phone" class="h-6 w-6" /></span>
+              Or call {business.phone2Display}
+            </a>
+          </li>
+          <li>
             <a href={`mailto:${business.email}`} class="flex items-center gap-4 font-semibold hover:text-blue">
               <span class="flex h-12 w-12 items-center justify-center rounded-full bg-navy text-white"><Icon name="mail" class="h-6 w-6" /></span>
               {business.email}
@@ -47,7 +53,7 @@ const nextSteps = [
           </li>
           <li class="flex items-center gap-4">
             <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-mist text-navy"><Icon name="clock" class="h-6 w-6" /></span>
-            <span>{business.hours}</span>
+            <span><strong class="font-semibold text-navy">{business.hours}</strong>, including weekends and public holidays</span>
           </li>
         </ul>
         <a class="mt-8 inline-block text-blue underline" href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`} target="_blank" rel="noopener">Open in Google Maps</a>

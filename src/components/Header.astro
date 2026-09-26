@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { business, whatsappLink, telLink } from '../data/site';
+import { business, whatsappLink, telLink, telLink2 } from '../data/site';
 
 const nav = [
   { href: '/services', label: 'Services' },
@@ -17,6 +17,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     <p class="flex items-center gap-5">
       <span class="flex items-center gap-2"><Icon name="clock" class="h-4 w-4" /> {business.hours}</span>
       <a href={telLink} class="flex items-center gap-2 font-semibold text-white hover:underline"><Icon name="phone" class="h-4 w-4" /> {business.phoneDisplay}</a>
+      <a href={telLink2} class="hidden font-semibold text-white hover:underline lg:inline">{business.phone2Display}</a>
     </p>
   </div>
 </div>
