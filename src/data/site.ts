@@ -13,7 +13,7 @@ export const business = {
   // Second line for calls
   phone2Display: '061 497 7404',
   phone2Tel: '+27614977404',
-  email: 'info@urgencyboreholes.co.za', // TODO: set up mailbox or use Paul's email
+  email: 'urgencyboreholes@gmail.com',
   address: {
     street: '6600 Blue Lily Close',
     suburb: 'Thatchfield Ridge',

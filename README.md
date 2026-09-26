@@ -10,6 +10,7 @@ Astro + Tailwind CSS v4, fully static, no backend.
 | `npm run dev` | Local dev server at http://localhost:4321 |
 | `npm run build` | Production build to `dist/` |
 | `npm run preview` | Serve the production build locally |
+| `npm run deploy` | Build and deploy to Cloudflare Pages (production) |
 | `npm run brand` | Export logo PNGs, OG image and touch icon from the SVGs in `public/brand` |
 
 ## Where things live
@@ -36,13 +37,14 @@ so leads land directly on the owner's phone and no personal data is stored on th
 ## Before launch checklist
 
 - [x] Real phone and WhatsApp number in `src/data/site.ts`
-- [ ] Email address (set up mailbox or use the owner's)
+- [x] Email address (urgencyboreholes@gmail.com)
 - [x] Confirm working hours
 - [ ] Replace placeholder testimonials with real customer reviews
 - [ ] Star rating (`business.rating`) must match Paul's real Google profile; add the profile link
 - [x] Drilling rig photos
 - [ ] Paul happy to be named on the About page
 - [ ] Register domain (urgencyboreholes.co.za) in the client's name, update `site` in `astro.config.mjs`
-- [ ] Deploy (Vercel or Cloudflare Pages) and connect the domain
+- [x] Deploy to Cloudflare Pages (project `urgency-boreholes`)
+- [ ] Point urgencyboreholes.co.za at Cloudflare and add it as a Pages custom domain
 - [ ] Google Business Profile with the same name, phone and address
 - [ ] Submit sitemap in Google Search Console
