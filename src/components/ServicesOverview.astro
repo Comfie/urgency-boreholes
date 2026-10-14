@@ -15,7 +15,7 @@ import { workImage } from '../lib/images';
 
     <div class="mt-12 grid gap-7 md:grid-cols-2" data-stagger>
       {services.map((s) => (
-        <a href={`/services#${s.slug}`} class="card card-lift group flex flex-col overflow-hidden sm:flex-row">
+        <a href={`/services/${s.pages[0].slug}`} class="card card-lift group flex flex-col overflow-hidden sm:flex-row">
           <div class="img-zoom relative aspect-[16/10] sm:aspect-auto sm:min-h-60 sm:w-2/5 sm:shrink-0">
             <Image
               src={workImage(s.image)}
@@ -30,7 +30,7 @@ import { workImage } from '../lib/images';
             <h3 class="text-2xl font-semibold transition-colors group-hover:text-blue sm:text-[1.7rem]">{s.title}</h3>
             <p class="mt-2 flex-1 text-stone">{s.summary}</p>
             <span class="mt-5 inline-flex items-center gap-2 font-semibold text-blue">
-              See what's included
+              More about {s.short.toLowerCase()}
               <svg class="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
             </span>
           </div>

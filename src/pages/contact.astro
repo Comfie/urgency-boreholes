@@ -16,8 +16,10 @@ const nextSteps = [
 <Layout
   title="Contact Us for a Borehole Quote"
   description="Contact Urgency Boreholes on WhatsApp or phone for a borehole, pump, water purification or plumbing quote in Centurion, Midrand and Johannesburg."
+
+  breadcrumbs={[{ name: 'Contact', href: '/contact' }]}
 >
-  <PageHeader title="Get a quote" intro="WhatsApp is the fastest way to reach us. Send your suburb and what you need, and we'll get back to you." />
+  <PageHeader breadcrumbs={[{ name: 'Contact', href: '/contact' }]} title="Get a quote" intro="WhatsApp is the fastest way to reach us. Send your suburb and what you need, and we'll get back to you." />
 
   <section class="section bg-water-soft">
     <div class="container-x grid items-start gap-10 lg:grid-cols-[1fr_1.3fr]">

@@ -27,3 +27,6 @@ pnpm-debug.log*
 raw-media/
 .vercel
 .env*
+
+# Cloudflare wrangler local state
+.wrangler/

@@ -14,20 +14,27 @@ const points = [
 // Depth gauge ticks (decorative). The signature element of the page.
 const ticks = [0, 20, 40, 60, 80];
 ---
-<section class="bg-water relative overflow-hidden">
+<section class="bg-water relative overflow-hidden" data-track-zone="hero">
   <!-- Soft light blooms for depth -->
   <div class="pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-blue/20 blur-3xl" aria-hidden="true"></div>
-  <div class="pointer-events-none absolute -bottom-48 -left-32 h-[28rem] w-[28rem] rounded-full bg-sky/30 blur-3xl" aria-hidden="true"></div>
+  <!-- Anchored to the top (not the bottom) so it cannot move when the hero height changes as fonts load (was causing CLS 0.32). -->
+  <div class="pointer-events-none absolute -left-32 top-[22rem] h-[28rem] w-[28rem] rounded-full bg-sky/30 blur-3xl" aria-hidden="true"></div>
 
-  <div class="container-x relative grid items-center gap-14 py-14 lg:grid-cols-[1.1fr_1fr] lg:py-22" data-stagger data-step="120">
+  <!-- No reveal animation on the headline or photo: they are the Largest Contentful Paint,
+       and hiding them until JavaScript runs delayed LCP by ~3 s on mobile. -->
+  <div class="container-x relative grid items-center gap-14 py-14 lg:grid-cols-[1.1fr_1fr] lg:py-22">
     <div>
       <p class="inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/60 px-4 py-1.5 text-sm font-semibold text-blue shadow-[var(--shadow-soft)] backdrop-blur-md">
-        <Icon name="drop" class="h-4 w-4" /> Borehole drilling and water systems in Gauteng
+        <Icon name="drop" class="h-4 w-4" /> Borehole water, from drilling to your tap
       </p>
-      <h1 class="mt-5 text-5xl font-bold sm:text-6xl lg:text-7xl">Borehole water, from drilling to your tap</h1>
+      <h1 class="mt-5 text-5xl font-bold sm:text-6xl">Borehole drilling and water systems in Centurion and Gauteng</h1>
       <p class="mt-6 max-w-xl text-lg text-ink/80">
-        {business.name} drills, equips and connects boreholes for homes and businesses in Centurion, Midrand and Johannesburg.
-        One team handles the drilling, pump, filtration and plumbing.
+        {business.name} drills, equips and connects boreholes for homes and businesses in{' '}
+        <a href="/areas/centurion" class="font-semibold text-navy underline decoration-blue/40 underline-offset-4 hover:text-blue">Centurion</a>,{' '}
+        <a href="/areas/midrand" class="font-semibold text-navy underline decoration-blue/40 underline-offset-4 hover:text-blue">Midrand</a>,{' '}
+        <a href="/areas/pretoria" class="font-semibold text-navy underline decoration-blue/40 underline-offset-4 hover:text-blue">Pretoria</a>{' '}and{' '}
+        <a href="/areas/johannesburg" class="font-semibold text-navy underline decoration-blue/40 underline-offset-4 hover:text-blue">Johannesburg</a>.{' '}
+        One team handles the drilling, pump, filtration and plumbing, and we repair existing borehole pumps 24/7.
       </p>
 
       <div class="mt-8 flex flex-wrap gap-3">
@@ -47,7 +54,7 @@ const ticks = [0, 20, 40, 60, 80];
       </ul>
     </div>
 
-    <div class="relative pl-14 sm:pl-16" data-reveal="zoom">
+    <div class="relative pl-14 sm:pl-16">
       <!-- Depth gauge: a measuring line from the surface down to the water strike -->
       <div class="absolute inset-y-0 left-0 w-14 sm:w-16" aria-hidden="true">
         <div class="absolute bottom-10 left-4 top-0 w-px bg-navy/25"></div>

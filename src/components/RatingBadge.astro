@@ -1,14 +1,16 @@
 ---
 // Star rating badge. Driven by business.rating in src/data/site.ts.
-// Only show a rating that matches the real public profile.
+// Renders nothing until `url` points at the real public profile, so visitors can
+// always verify the rating they see.
 import { business } from '../data/site';
 interface Props { class?: string }
 const { class: className = '' } = Astro.props;
 const { stars, source, url } = business.rating;
-const Tag = url ? 'a' : 'div';
-const linkProps = url ? { href: url, target: '_blank', rel: 'noopener' } : {};
+const show = Boolean(url);
+const Tag = 'a';
+const linkProps = { href: url, target: '_blank', rel: 'noopener' };
 ---
-<Tag
+{show && <Tag
   {...linkProps}
   class:list={['glass inline-flex items-center gap-3 rounded-full py-2 pl-2 pr-4', url && 'transition-transform duration-500 hover:-translate-y-0.5', className]}
   aria-label={`Rated ${stars} out of 5 on ${source}`}
@@ -23,4 +25,4 @@ const linkProps = url ? { href: url, target: '_blank', rel: 'noopener' } : {};
     ))}
   </span>
   <span class="text-sm font-semibold text-navy">{stars.toFixed(1)} on {source}</span>
-</Tag>
+</Tag>}

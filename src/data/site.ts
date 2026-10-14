@@ -24,9 +24,12 @@ export const business = {
   hours: 'Open 24/7',
   radiusKm: 100,
   yearsDrilling: 5,
-  // TODO: must match Paul's real Google Business Profile rating before launch.
-  // Add the profile link to `url` so visitors can verify it.
+  // The rating badge only renders when `url` links to Paul's real Google Business
+  // Profile AND `stars` matches the rating shown there. Leave `url` empty until then.
+  // Showing a rating that can't be verified is misleading advertising (CPA s41).
   rating: { stars: 4, source: 'Google', url: '' },
+  // Google Business Profile "write a review" link, once the profile is verified.
+  reviewLink: '',
   founder: 'Paul', // TODO: confirm Paul is happy to be named on the About page
   social: {
     facebook: '', // TODO: add if Paul has pages
@@ -58,6 +61,8 @@ export const areas = [
 
 export type Service = {
   slug: string;
+  /** Dedicated pages under /services/ that cover this service in depth. */
+  pages: { slug: string; label: string }[];
   title: string;
   short: string;
   summary: string;
@@ -69,6 +74,7 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: 'borehole-drilling',
+    pages: [{ slug: 'borehole-drilling', label: 'Borehole drilling' }],
     title: 'Borehole drilling and new installations',
     short: 'Borehole drilling',
     summary:
@@ -84,6 +90,10 @@ export const services: Service[] = [
   },
   {
     slug: 'pump-installation',
+    pages: [
+      { slug: 'borehole-pump-installation', label: 'Pump installation' },
+      { slug: 'borehole-pump-repairs', label: 'Pump repairs' },
+    ],
     title: 'Pump installation, repairs and replacements',
     short: 'Pump installation',
     summary:
@@ -99,6 +109,7 @@ export const services: Service[] = [
   },
   {
     slug: 'water-purification',
+    pages: [{ slug: 'water-filtration-purification', label: 'Water filtration and purification' }],
     title: 'Water purification and filtration systems',
     short: 'Water purification',
     summary:
@@ -114,6 +125,7 @@ export const services: Service[] = [
   },
   {
     slug: 'plumbing-connections',
+    pages: [{ slug: 'borehole-plumbing', label: 'Borehole plumbing and connections' }],
     title: 'Plumbing and system connections',
     short: 'Plumbing & connections',
     summary:
@@ -166,8 +178,10 @@ export const work: WorkItem[] = [
   { image: 'filtration-softeners-wall.jpg', alt: 'Two blue softener vessels and a filter rack piped in beside a water tank', caption: 'Softeners and filtration' },
 ];
 
-// TODO: PLACEHOLDER REVIEWS. Replace with real customer feedback before launch.
-// Publishing invented reviews on a live site is misleading advertising.
+// PLACEHOLDER REVIEWS: these are NOT real customers and are hidden on the live site.
+// Replace them with real feedback (ideally copied from Google reviews, with the
+// customer's permission) and only then set `testimonialsVerified` to true.
+export const testimonialsVerified = false;
 export const testimonials = [
   {
     quote: 'The team explained everything upfront and the borehole was running within the week. We no longer worry when the municipal water goes off.',
@@ -212,7 +226,7 @@ export const faqs = [
   },
   {
     q: 'Do I need permission to drill a borehole?',
-    a: 'Requirements depend on your municipality and how much water you plan to use. We will tell you what applies to your property and what you need to register.',
+    a: 'Usually not from national government for normal household use. In July 2026 the Department of Water and Sanitation confirmed that reasonable domestic borehole use falls under Schedule 1 of the National Water Act and does not need registration. Your municipality is a separate matter: Johannesburg (including Midrand, Sandton and Fourways) requires written consent before drilling, and Tshwane (including Centurion and Pretoria) has water supply by-laws and restricts drilling in some dolomite areas. We check what applies to your property before we drill.',
   },
   {
     q: 'Do you work outside Centurion?',
@@ -224,13 +238,13 @@ export const faqs = [
 export const videos = [
   {
     src: '/videos/borehole-water-strike.mp4',
-    poster: '/videos/borehole-water-strike.jpg',
+    poster: '/videos/borehole-water-strike.webp',
     title: 'Water rising in a newly drilled borehole',
     body: 'The moment that matters: water coming up through a fresh borehole on a customer’s property.',
   },
   {
     src: '/videos/pump-test.mp4',
-    poster: '/videos/pump-test.jpg',
+    poster: '/videos/pump-test.webp',
     title: 'Pressure pump tested before handover',
     body: 'Every system is run and checked for flow and pressure before we hand it over.',
   },

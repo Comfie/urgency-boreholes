@@ -1,0 +1,29 @@
+---
+// Google Analytics 4. Loads only when PUBLIC_GA4_ID is set at build time
+// (e.g. PUBLIC_GA4_ID=G-XXXXXXXXXX in a local .env file, since `npm run deploy`
+// builds on the developer's machine). Without it, nothing is loaded and events
+// from src/scripts/track.ts go to an inert dataLayer.
+//
+// Privacy (POPIA): advertising storage and signals are denied by default, Google
+// signals are off and GA4 does not store IP addresses. The /privacy page tells
+// visitors what is collected. If Google Ads remarketing is ever added, add a
+// consent banner before granting ad_storage.
+const id = import.meta.env.PUBLIC_GA4_ID as string | undefined;
+---
+{id && (
+  <>
+    <script is:inline define:vars={{ id }}>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'granted',
+      });
+      window.gtag('js', new Date());
+      window.gtag('config', id, { allow_google_signals: false, allow_ad_personalization_signals: false });
+    </script>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${id}`}></script>
+  </>
+)}
