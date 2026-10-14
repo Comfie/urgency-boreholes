@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="Page not found" description="This page could not be found.">
+<Layout title="Page not found" description="This page could not be found." noindex>
   <section class="section">
     <div class="container-x max-w-2xl">
       <h1 class="text-6xl font-bold">This page doesn't exist</h1>
@@ -9,6 +9,8 @@ import Layout from '../layouts/Layout.astro';
       <div class="mt-8 flex flex-wrap gap-3">
         <a href="/" class="btn btn-primary">Go to the home page</a>
         <a href="/contact" class="btn btn-outline">Get a quote</a>
+        <a href="/services" class="btn btn-outline">Our services</a>
+        <a href="/areas" class="btn btn-outline">Areas we serve</a>
       </div>
     </div>
   </section>

@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import AreaLinks from '../components/AreaLinks.astro';
+import Areas from '../components/Areas.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { business } from '../data/site';
+---
+<Layout
+  title="Borehole Service Areas in Gauteng"
+  description={`Urgency Boreholes works within about ${business.radiusKm} km of Centurion: Midrand, Pretoria, Johannesburg North, Sandton, Fourways, Kempton Park and more. Local rules explained.`}
+  breadcrumbs={[{ name: 'Areas', href: '/areas' }]}
+>
+  <PageHeader
+    title="Areas we serve"
+    intro={`We are based in ${business.address.suburb}, ${business.address.city}, and drill, equip and repair boreholes within about ${business.radiusKm} km. Borehole rules differ between Tshwane and Johannesburg, so each area page explains what applies.`}
+    breadcrumbs={[{ name: 'Areas', href: '/areas' }]}
+  />
+  <AreaLinks heading="Main service areas" />
+  <Areas heading="Everywhere we work" />
+  <CtaBand title="Not sure if we cover your area?" body="Send us your suburb on WhatsApp and we'll confirm straight away." />
+</Layout>

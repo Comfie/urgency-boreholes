@@ -1,20 +1,30 @@
 ---
-import { faqs } from '../data/site';
+// FAQ accordion. Content stays in the HTML (native <details>), so Google can read
+// every answer without running JavaScript. FAQPage markup always mirrors what is shown.
+import { faqs as defaultFaqs } from '../data/site';
+type Item = { q: string; a: string };
+interface Props { items?: Item[]; title?: string; intro?: string; class?: string }
+const {
+  items = defaultFaqs,
+  title = 'Common questions',
+  intro = 'Something else you want to know? Ask us on WhatsApp.',
+  class: className = '',
+} = Astro.props;
 ---
-<section class="section" id="faq">
+<section class:list={['section', className]} id="faq">
   <div class="container-x grid gap-12 lg:grid-cols-[1fr_1.6fr]">
     <div data-reveal="left">
-      <h2 class="h2">Common questions</h2>
-      <p class="lede">Something else you want to know? Ask us on WhatsApp.</p>
+      <h2 class="h2">{title}</h2>
+      <p class="lede">{intro}</p>
     </div>
     <div class="space-y-3" data-stagger="rise" data-step="80">
-      {faqs.map((f) => (
+      {items.map((f) => (
         <details class="faq group rounded-2xl border border-line/80 bg-white/70 px-6 shadow-[var(--shadow-soft)] backdrop-blur transition-shadow duration-500 open:shadow-[var(--shadow-lift)]">
           <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-xl font-semibold text-navy [&::-webkit-details-marker]:hidden">
             {f.q}
             <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mist text-xl text-blue transition-transform duration-500 group-open:rotate-45" aria-hidden="true">+</span>
           </summary>
-          <p class="pb-6 text-stone">{f.a}</p>
+          <p class="pb-6 text-stone" set:html={f.a} />
         </details>
       ))}
     </div>
@@ -35,5 +45,5 @@ import { faqs } from '../data/site';
 <script type="application/ld+json" set:html={JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  mainEntity: items.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, '') } })),
 })} />

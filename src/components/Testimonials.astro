@@ -1,9 +1,9 @@
 ---
-import { testimonials } from '../data/site';
+import { testimonials, testimonialsVerified } from '../data/site';
 import RatingBadge from './RatingBadge.astro';
-// TODO: testimonials are placeholders (see src/data/site.ts). Replace before launch.
+// Hidden until real reviews replace the placeholders (see testimonialsVerified in src/data/site.ts).
 ---
-<section class="section overflow-hidden">
+{testimonialsVerified && testimonials.length > 0 && <section class="section overflow-hidden">
   <div class="pointer-events-none absolute left-1/2 top-0 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-blue/10 blur-3xl" aria-hidden="true"></div>
   <div class="container-x relative">
     <div class="flex flex-wrap items-end justify-between gap-6" data-reveal>
@@ -26,4 +26,4 @@ import RatingBadge from './RatingBadge.astro';
       ))}
     </div>
   </div>
-</section>
+</section>}

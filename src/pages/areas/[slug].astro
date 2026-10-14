@@ -1,0 +1,138 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import { areaPages, areaPageBySlug, rulesCheckedNote, type AreaPage } from '../../data/areaPages';
+import { servicePages } from '../../data/servicePages';
+import { business, whatsappLink, telLink } from '../../data/site';
+import { workImage } from '../../lib/images';
+
+export function getStaticPaths() {
+  return areaPages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+interface Props { page: AreaPage }
+const { page } = Astro.props;
+const nearby = page.nearby.map(areaPageBySlug).filter((p): p is AreaPage => Boolean(p));
+const crumbs = [{ name: 'Areas', href: '/areas' }, { name: page.name, href: `/areas/${page.slug}` }];
+const linkStyles = '[&_a]:font-semibold [&_a]:text-blue [&_a]:underline [&_a]:underline-offset-4';
+---
+<Layout title={page.metaTitle} description={page.metaDescription} breadcrumbs={crumbs}>
+  <PageHeader title={page.h1} eyebrow={`${page.municipality} · within ${business.radiusKm} km of our Centurion base`} intro={page.intro} breadcrumbs={crumbs}>
+    <div class="mt-8 flex flex-wrap gap-3" data-track-zone="page-header">
+      <a href={whatsappLink(page.waMessage)} class="btn btn-whatsapp text-lg" target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp for a quote</a>
+      <a href={telLink} class="btn btn-outline text-lg"><Icon name="phone" /> Call {business.phoneDisplay}</a>
+    </div>
+  </PageHeader>
+
+  <!-- Services available in this area -->
+  <section class="section" id="services">
+    <div class="container-x">
+      <h2 class="h2" data-reveal>Our services in {page.name}</h2>
+      <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-stagger="rise" data-step="80">
+        {servicePages.map((s) => (
+          <li>
+            <a href={`/services/${s.slug}`} class="card card-lift group flex h-full flex-col p-6">
+              <span class="text-2xl font-semibold transition-colors group-hover:text-blue">{s.name}</span>
+              <span class="mt-2 flex-1 text-stone">{s.eyebrow}.</span>
+              <span class="mt-4 font-semibold text-blue">More about {s.name.toLowerCase()} →</span>
+            </a>
+          </li>
+        ))}
+        <li>
+          <a href={whatsappLink(page.waMessage)} target="_blank" rel="noopener" class="glass card-lift group flex h-full flex-col rounded-2xl p-6">
+            <span class="text-2xl font-semibold text-navy">Not sure what you need?</span>
+            <span class="mt-2 flex-1 text-stone">Send us photos and your suburb on WhatsApp and we will advise.</span>
+            <span class="mt-4 font-semibold text-whatsapp">Ask on WhatsApp →</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Local information: the content that makes this page useful for this area -->
+  <section class="section bg-water-soft" id="local">
+    <div class="container-x grid items-start gap-12 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
+      <div class="space-y-14">
+        {page.sections.map((sec) => (
+          <div class="space-y-4 text-lg" data-reveal="rise">
+            <h2 class="h2">{sec.heading}</h2>
+            {sec.paragraphs.map((p) => <p class={linkStyles} set:html={p} />)}
+            {sec.list && (
+              <ul class="mt-2 space-y-3">
+                {sec.list.map((item) => (
+                  <li class="flex items-start gap-3">
+                    <span class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue/10 text-blue"><Icon name="check" class="h-3.5 w-3.5" /></span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+        <p class="rounded-2xl border border-line bg-white/70 p-5 text-sm text-stone">{rulesCheckedNote}</p>
+      </div>
+      <aside class="space-y-8 lg:sticky lg:top-28" data-reveal="zoom">
+        <Image
+          src={workImage(page.image)}
+          alt={page.imageAlt}
+          widths={[480, 720]}
+          sizes="(min-width: 1024px) 400px, 100vw"
+          class="aspect-[4/5] w-full rounded-3xl object-cover shadow-[var(--shadow-deep)] ring-1 ring-white/60"
+        />
+        <div class="glass rounded-3xl p-6">
+          <h2 class="text-2xl font-semibold">{page.suburbsHeading}</h2>
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {page.suburbs.map((sub) => <li class="rounded-full border border-line bg-white/80 px-3 py-1 text-sm font-medium text-navy">{sub}</li>)}
+          </ul>
+          <p class="mt-4 text-sm text-stone">{page.suburbsNote}</p>
+          <a href={whatsappLink(page.waMessage)} class="btn btn-primary mt-5 w-full" target="_blank" rel="noopener">Check my suburb</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {page.projects.length > 0 && (
+    <section class="section" id="projects">
+      <div class="container-x">
+        <h2 class="h2" data-reveal>Recent jobs in {page.name}</h2>
+        <ul class="mt-10 grid gap-6 md:grid-cols-3" data-stagger="rise">
+          {page.projects.map((p) => (
+            <li class="card overflow-hidden">
+              {p.image && <Image src={workImage(p.image)} alt={`${p.summary} in ${p.suburb}`} widths={[320, 480, 640]} sizes="(min-width: 768px) 33vw, 100vw" class="aspect-[4/3] w-full object-cover" />}
+              <div class="p-6">
+                <p class="font-semibold text-navy">{p.suburb}</p>
+                <p class="mt-1 text-stone">{p.summary}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <Faq items={page.faqs} title={`Boreholes in ${page.name}: common questions`} />
+
+  <section class="section bg-water-soft" id="sources">
+    <div class="container-x grid gap-10 lg:grid-cols-2">
+      <div data-reveal="left">
+        <h2 class="text-3xl font-bold">Sources</h2>
+        <ul class="mt-4 space-y-2 text-sm">
+          {page.sources.map((s) => <li><a href={s.href} class="text-blue underline underline-offset-4" target="_blank" rel="noopener">{s.label}</a></li>)}
+        </ul>
+      </div>
+      <div data-reveal="rise">
+        <h2 class="text-3xl font-bold">Nearby areas</h2>
+        <ul class="mt-4 flex flex-wrap gap-3">
+          {nearby.map((n) => <li><a href={`/areas/${n.slug}`} class="btn btn-outline">Boreholes in {n.name}</a></li>)}
+          <li><a href="/areas" class="btn btn-outline">All areas</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title={`Need a borehole sorted in ${page.name}?`} body="We are available 24/7. Send us your suburb and what you need, and we will arrange a site visit and a written quote." />
+</Layout>

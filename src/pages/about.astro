@@ -41,8 +41,10 @@ const promises = [
 <Layout
   title="About Us: Borehole Drillers in Centurion"
   description={`Urgency Boreholes has been drilling boreholes in Centurion, Midrand and Johannesburg for ${years} years. One team for drilling, pumps, water purification and plumbing.`}
+
+  breadcrumbs={[{ name: 'About', href: '/about' }]}
 >
-  <PageHeader
+  <PageHeader breadcrumbs={[{ name: 'About', href: '/about' }]}
     title="About Urgency Boreholes"
     intro={`${YearsWord} years of drilling boreholes across Gauteng, and one simple rule: when it comes to your water, we treat it as urgent.`}
   />

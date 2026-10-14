@@ -13,6 +13,7 @@ import { workImage } from '../lib/images';
           <Image
             src={workImage(s.image)}
             alt={s.imageAlt}
+            loading={i === 0 ? 'eager' : 'lazy'}
             widths={[480, 720, 960]}
             sizes="(min-width: 1024px) 540px, 100vw"
             class="aspect-[4/3] w-full rounded-3xl object-cover shadow-[var(--shadow-deep)] ring-1 ring-white/60"
@@ -42,6 +43,11 @@ import { workImage } from '../lib/images';
             target="_blank"
             rel="noopener"
           ><Icon name="whatsapp" /> Ask about {s.short.toLowerCase()}</a>
+          <ul class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+            {s.pages.map((pg) => (
+              <li><a href={`/services/${pg.slug}`} class="font-semibold text-blue underline underline-offset-4 hover:text-blue-dark">Full guide: {pg.label.toLowerCase()} →</a></li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

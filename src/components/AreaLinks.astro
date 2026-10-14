@@ -1,0 +1,35 @@
+---
+// Links from service pages (and the hub) to the location pages. These internal
+// links are how Google connects "service" pages with "place" pages.
+import Icon from './Icon.astro';
+import { areaPages } from '../data/areaPages';
+import { business } from '../data/site';
+interface Props { heading?: string; serviceName?: string; exclude?: string }
+const { heading = 'Areas we serve', serviceName, exclude } = Astro.props;
+const list = areaPages.filter((a) => a.slug !== exclude);
+---
+<section class="section" id="areas">
+  <div class="container-x">
+    <div data-reveal>
+      <h2 class="h2">{heading}</h2>
+      <p class="lede">
+        We are based in {business.address.suburb}, {business.address.city}, and work within about {business.radiusKm} km of Centurion.
+        {serviceName ? ` Find out what applies to ${serviceName} in your area:` : ' Choose your area:'}
+      </p>
+    </div>
+    <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" data-stagger="rise" data-step="90">
+      {list.map((a) => (
+        <li>
+          <a href={`/areas/${a.slug}`} class="glass card-lift group flex h-full flex-col rounded-2xl p-6">
+            <span class="flex items-center gap-2 text-2xl font-semibold text-navy transition-colors group-hover:text-blue">
+              <Icon name="pin" class="h-5 w-5 text-blue" /> {a.name}
+            </span>
+            <span class="mt-2 flex-1 text-sm text-stone">{a.municipality}</span>
+            <span class="mt-4 font-semibold text-blue">Boreholes in {a.name} →</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-8 text-stone">Also Sandton, Fourways, Randburg, Kempton Park, Hartbeespoort and surrounding areas. <a href="/areas" class="font-semibold text-blue underline underline-offset-4">See all areas</a>.</p>
+  </div>
+</section>

@@ -1,0 +1,172 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import AreaLinks from '../../components/AreaLinks.astro';
+import { servicePages, servicePageBySlug, type ServicePage } from '../../data/servicePages';
+import { business, whatsappLink, telLink, work } from '../../data/site';
+import { areaPages } from '../../data/areaPages';
+import { workImage } from '../../lib/images';
+import { absoluteUrl, businessId } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return servicePages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+interface Props { page: ServicePage }
+const { page } = Astro.props;
+const url = absoluteUrl(`/services/${page.slug}`);
+const related = page.related.map(servicePageBySlug).filter((p): p is ServicePage => Boolean(p));
+const gallery = page.gallery
+  .map((file) => work.find((w) => w.image === file))
+  .filter((w): w is (typeof work)[number] => Boolean(w));
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${url}#service`,
+  name: page.name,
+  serviceType: page.serviceType,
+  description: page.metaDescription,
+  url,
+  provider: { '@id': businessId },
+  areaServed: areaPages.map((a) => ({ '@type': 'City', name: a.name })),
+  availableChannel: {
+    '@type': 'ServiceChannel',
+    servicePhone: { '@type': 'ContactPoint', telephone: business.phoneTel },
+    serviceUrl: absoluteUrl('/contact'),
+  },
+};
+---
+<Layout
+  title={page.metaTitle}
+  description={page.metaDescription}
+  breadcrumbs={[{ name: 'Services', href: '/services' }, { name: page.name, href: `/services/${page.slug}` }]}
+  schema={[serviceSchema]}
+>
+  <PageHeader
+    title={page.h1}
+    eyebrow={page.eyebrow}
+    intro={page.intro}
+    breadcrumbs={[{ name: 'Services', href: '/services' }, { name: page.name, href: `/services/${page.slug}` }]}
+  >
+    <div class="mt-8 flex flex-wrap gap-3" data-track-zone="page-header">
+      <a href={whatsappLink(page.waMessage)} class="btn btn-whatsapp text-lg" target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp for a quote</a>
+      <a href={telLink} class="btn btn-outline text-lg"><Icon name="phone" /> Call {business.phoneDisplay}</a>
+    </div>
+  </PageHeader>
+
+  <!-- Customer problems -->
+  <section class="section" id="signs">
+    <div class="container-x">
+      <h2 class="h2" data-reveal>{page.signsTitle}</h2>
+      <div class:list={['mt-10 grid gap-6 sm:grid-cols-2', page.signs.length % 3 === 0 ? 'lg:grid-cols-3' : 'lg:grid-cols-2']} data-stagger="rise" data-step="90">
+        {page.signs.map((s) => (
+          <div class="card card-lift p-6">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-blue/10 text-blue"><Icon name="drop" class="h-5 w-5" /></span>
+            <h3 class="mt-4 text-2xl font-semibold">{s.title}</h3>
+            <p class="mt-2 text-stone">{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How we do it + what's included -->
+  <section class="section bg-water-soft" id="approach">
+    <div class="container-x grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="space-y-5 text-lg" data-reveal="left">
+        <h2 class="h2">{page.approachTitle}</h2>
+        {page.paragraphs.map((p) => <p class="[&_a]:font-semibold [&_a]:text-blue [&_a]:underline [&_a]:underline-offset-4" set:html={p} />)}
+      </div>
+      <div data-reveal="rise">
+        <Image
+          src={workImage(page.image)}
+          alt={page.imageAlt}
+          widths={[480, 720, 960]}
+          sizes="(min-width: 1024px) 540px, 100vw"
+          class="aspect-[4/3] w-full rounded-3xl object-cover shadow-[var(--shadow-deep)] ring-1 ring-white/60"
+        />
+        <div class="glass mt-8 rounded-3xl p-6 sm:p-8">
+          <h3 class="text-2xl font-semibold">{page.includesTitle}</h3>
+          <ul class="mt-4 space-y-3">
+            {page.includes.map((item) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue/10 text-blue"><Icon name="check" class="h-3.5 w-3.5" /></span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section bg-water overflow-hidden" id="process">
+    <div class="container-x">
+      <h2 class="h2" data-reveal>How it works</h2>
+      <ol class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4" data-stagger data-step="130">
+        {page.process.map((step, i) => (
+          <li class="glass card-lift rounded-2xl p-6">
+            <span class="flex h-11 w-11 items-center justify-center rounded-full bg-blue font-display text-xl font-bold text-white shadow-[var(--shadow-glow-blue)] ring-4 ring-white" aria-hidden="true">{i + 1}</span>
+            <h3 class="mt-5 text-2xl font-semibold">{step.title}</h3>
+            <p class="mt-2 text-stone">{step.body}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="mt-10" data-reveal="rise">
+        <a href={whatsappLink(page.waMessage)} class="btn btn-whatsapp text-lg" target="_blank" rel="noopener"><Icon name="whatsapp" /> Start with step 1</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real job photos -->
+  {gallery.length > 0 && (
+    <section class="section" id="work">
+      <div class="container-x">
+        <div class="flex flex-wrap items-end justify-between gap-6" data-reveal>
+          <h2 class="h2">From our jobs</h2>
+          <a href="/our-work" class="btn btn-outline">See all our work</a>
+        </div>
+        <ul class="mt-10 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3" data-stagger="zoom" data-step="90">
+          {gallery.slice(0, 3).map((item) => (
+            <li>
+              <figure class="relative overflow-hidden rounded-2xl shadow-[var(--shadow-soft)]">
+                <Image src={workImage(item.image!)} alt={item.alt} widths={[320, 480, 640]} sizes="(min-width: 768px) 33vw, 50vw" class="aspect-square w-full object-cover" />
+                <figcaption class="absolute inset-x-3 bottom-3 rounded-xl border border-white/20 bg-navy-deep/60 px-3 py-2 text-sm font-semibold text-white backdrop-blur-md">{item.caption}</figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <AreaLinks heading={`${page.name} near you`} serviceName={page.name.toLowerCase()} />
+
+  <Faq items={page.faqs} title={`${page.name}: common questions`} class="bg-water-soft" />
+
+  <!-- Related services -->
+  <section class="section" id="related">
+    <div class="container-x">
+      <h2 class="h2" data-reveal>Related services</h2>
+      <ul class="mt-10 grid gap-6 md:grid-cols-3" data-stagger="rise" data-step="100">
+        {related.map((r) => (
+          <li>
+            <a href={`/services/${r.slug}`} class="card card-lift group flex h-full flex-col p-6">
+              <span class="text-2xl font-semibold transition-colors group-hover:text-blue">{r.name}</span>
+              <span class="mt-2 flex-1 text-stone">{r.intro.match(/^.*?[.!?](\s|$)/)?.[0].trim() ?? r.intro}</span>
+              <span class="mt-4 font-semibold text-blue">Read more →</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand title={`Need ${page.name.toLowerCase()}?`} body="We are available 24/7. Send us your suburb and what you need, and we will arrange a site visit and a written quote." />
+</Layout>

@@ -8,20 +8,24 @@ import ServiceNav from '../components/ServiceNav.astro';
 import PackageBand from '../components/PackageBand.astro';
 import VideoShowcase from '../components/VideoShowcase.astro';
 import Faq from '../components/Faq.astro';
+import AreaLinks from '../components/AreaLinks.astro';
 ---
 <Layout
-  title="Borehole Services: Drilling, Pumps, Purification & Plumbing"
+  title="Borehole Services in Centurion & Gauteng"
   description="Borehole drilling, pump installation and repairs, water purification and filtration, and plumbing connections in Centurion, Midrand, Pretoria and Johannesburg."
+  breadcrumbs={[{ name: 'Services', href: '/services' }]}
 >
   <PageHeader
-    title="Borehole services"
+    title="Borehole services in Centurion and Gauteng"
     intro="From drilling the hole to clean water at the tap. Choose one service or let us handle the whole system."
+    breadcrumbs={[{ name: 'Services', href: '/services' }]}
   />
   <ServiceNav />
   <ServicesDetail />
   <PackageBand />
   <VideoShowcase title="Real jobs, real water" tone="light" />
   <Process />
+  <AreaLinks />
   <Faq />
   <CtaBand />
 </Layout>

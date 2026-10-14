@@ -1,11 +1,26 @@
 ---
 import Icon from './Icon.astro';
 import { areas, business, whatsappLink } from '../data/site';
+// Areas with their own page get a link; the rest are listed as plain text.
+const pageFor: Record<string, string> = {
+  Centurion: '/areas/centurion',
+  'Irene & Midstream': '/areas/centurion',
+  'Olievenhoutbosch': '/areas/centurion',
+  'Thatchfield & Rooihuiskraal': '/areas/centurion',
+  Midrand: '/areas/midrand',
+  Pretoria: '/areas/pretoria',
+  'Johannesburg North': '/areas/johannesburg',
+  Sandton: '/areas/johannesburg',
+  Fourways: '/areas/johannesburg',
+  Randburg: '/areas/johannesburg',
+};
+interface Props { heading?: string }
+const { heading = 'Areas we serve' } = Astro.props;
 ---
 <section class="section overflow-hidden" id="areas">
   <div class="container-x grid items-center gap-14 lg:grid-cols-[1fr_1.3fr]">
     <div data-reveal="left">
-      <h2 class="h2">Areas we serve</h2>
+      <h2 class="h2">{heading}</h2>
       <p class="lede">
         We are based in {business.address.suburb}, {business.address.city}, and work within {business.radiusKm} km of Centurion.
       </p>
@@ -31,7 +46,8 @@ import { areas, business, whatsappLink } from '../data/site';
       <ul class="grid gap-x-6 sm:grid-cols-2" data-stagger="rise" data-step="50">
         {areas.map((area) => (
           <li class="flex items-center gap-3 border-b border-line/80 py-3 text-lg font-medium">
-            <Icon name="pin" class="h-5 w-5 text-blue" /> {area}
+            <Icon name="pin" class="h-5 w-5 text-blue" />
+            {pageFor[area] ? <a href={pageFor[area]} class="hover:text-blue hover:underline">{area}</a> : area}
           </li>
         ))}
       </ul>
